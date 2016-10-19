@@ -1,0 +1,13 @@
+:local .buttons {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.Title {
+  position: relative;
+}
+
+.Signout {
+  position: absolute;
+  right: 0;
+}
