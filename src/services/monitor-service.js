@@ -5,7 +5,9 @@ import Firehose from 'meshblu-firehose-socket.io/src/firehose-socket-io.coffee'
 import { getCredentials } from '../services/credentials-service'
 
 export default class MonitorService {
-  constructor() {
+  constructor(uuidToMonitor) {
+    if(!uuidToMonitor) throw new Error('MonitorService must be constructed with a uuid to monitor.')
+    this._uuidToMonitor = uuidToMonitor
     const { uuid, token } = getCredentials()
     this._lastUpdatedAts = {}
     this._onActivitiesHandlers = []
@@ -21,16 +23,14 @@ export default class MonitorService {
     }
 
     this._firehose = new Firehose({ meshbluConfig: this._meshbluConfig })
-    this._meshblu = new MeshbluHTTP({meshbluConfig: this._meshbluConfig})
+    this._meshblu = new MeshbluHTTP({uuid, token})
     this._firehose.on('message', this._onMessage)
-
   }
 
-  connect(callback) {
-    const {uuid} = this._meshbluConfig
-    this._firehose.connect({ uuid }, (error) => {
-      if (error) return callback(error)
-      this.refresh(callback)
+  monitor(callback) {
+    this._meshblu.device(this._uuidToMonitor, (error, device) => {
+      if(error) return callback(error)
+      console.log(device)
     })
   }
 

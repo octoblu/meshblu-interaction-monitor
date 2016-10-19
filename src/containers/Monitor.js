@@ -2,7 +2,7 @@ import _ from 'lodash'
 import React from 'react'
 import { browserHistory } from 'react-router'
 
-import Firehose from '../services/monitor-service'
+import MonitorService from '../services/monitor-service'
 import { verifyCredentials } from '../services/credentials-service'
 
 export default class Monitor extends React.Component {
@@ -10,7 +10,7 @@ export default class Monitor extends React.Component {
 
   constructor(props){
     super(props)
-    console.log(props.location)
+    this.uuid = props.params.uuid
   }
 
   componentDidMount(){
@@ -19,7 +19,10 @@ export default class Monitor extends React.Component {
     verifyCredentials({ bearerToken }, (error, verified) => {
       if (error) return this.handleError(error)
       if (!verified) return browserHistory.push('/settings')
-      this.firehose = new Firehose()
+      this.monitorService = new MonitorService(this.uuid)
+      this.monitorService.monitor((error) => {
+        if(error) return this.setState({error})
+      })
     })
   }
 
@@ -27,15 +30,17 @@ export default class Monitor extends React.Component {
     if (this.userFirehose) this.userFirehose.close()
   }
 
-  handleError = (error) => {
-    if (!error) return
-
-    this.setState({ error })
-  }
-
   render() {
+    const {error} = this.state
+
+    if(error) {
+      return <h1> Error: {error.message} </h1>
+    }
+
     return (
-      <h1>Monitor</h1>
+      <div>
+        <h1>Monitor</h1>
+      </div>
     )
   }
 }
