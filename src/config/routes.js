@@ -1,17 +1,24 @@
 import React from 'react'
-import { Route, IndexRoute } from 'react-router'
-import App from '../containers/app'
-import Home from '../containers/home'
+import { Route, IndexRoute, Router } from 'react-router'
+import App from '../containers/App'
+import Home from '../containers/Home'
+import Thing from '../containers/Thing'
+import Things from '../containers/Things'
 import NotFound from '../components/NotFound'
-import Settings from '../containers/Settings'
-import Monitor from '../containers/Monitor'
-export default (
-  <Route>
-    <Route path="/" component={App}>
-      <IndexRoute component={Home} />
-      <Route path="/settings" component={Settings} />
-      <Route path="/monitor/:uuid" component={Monitor} />
-    </Route>
-    <Route path="*" status={404} component={NotFound} />
-  </Route>
-)
+import { storeAuthenticationAndRedirect } from '../services/auth-service'
+
+export default ({ history }) => {
+  return (
+    <Router history={history}>
+      <Route path="/" component={App}>
+        <Route path="auth/callback" onEnter={storeAuthenticationAndRedirect} />
+        <IndexRoute component={Things} />
+        <Route path="things" component={Things} />
+        <Route path="things/:deviceUuid" component={Thing} />
+      </Route>
+
+      <Route path="home" component={Home} />
+      <Route path="*" status={404} component={NotFound} />
+    </Router>
+  )
+}

@@ -78,6 +78,9 @@ module.exports = {
       }
     }),
   ],
+  node: {
+    fs: "empty"
+  },
   module: {
     loaders: [
       {
@@ -94,11 +97,6 @@ module.exports = {
         test:   /\.css$/,
         loader: 'style-loader!css-loader?modules&localIdentName=[name]__[local]___[hash:base64:5]&importLoaders=1!postcss-loader',
         include: path.join(__dirname, 'src')
-      },
-      {
-        test: /\.coffee$/,
-        loader: "coffee-loader",
-        include: path.join(__dirname, 'node_modules')
       },
       {
         test: /\.json$/,

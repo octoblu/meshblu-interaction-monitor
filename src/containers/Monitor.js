@@ -1,46 +1,111 @@
-import _ from 'lodash'
-import React from 'react'
-import { browserHistory } from 'react-router'
+import pluralize from 'pluralize'
+import React, { PropTypes } from 'react'
+import { search, unregister } from 'redux-meshblu'
+import { connect } from 'react-redux'
 
-import MonitorService from '../services/monitor-service'
-import { verifyCredentials } from '../services/credentials-service'
+import { selectThing, unselectThing } from '../actions/thing'
+import {
+  clearSelectedThings,
+  deleteSelectedThings,
+  deleteSelection,
+  dismissDeleteDialog,
+  showDeleteDialog,
+  dismissTagDialog,
+  showTagDialog,
 
-export default class Monitor extends React.Component {
-  state = {}
 
-  constructor(props){
-    super(props)
-    this.uuid = props.params.uuid
+} from '../actions/things'
+import { getMeshbluConfig } from '../services/auth-service'
+
+import ThingsLayout from '../components/ThingsLayout'
+
+const propTypes = {
+  dispatch: PropTypes.func,
+  things: PropTypes.object,
+}
+
+class Things extends React.Component {
+  componentDidMount() {
+    this.fetchThings()
   }
 
-  componentDidMount(){
-    const bearerToken = this.bearerToken
+  fetchThings() {
+    const meshbluConfig = getMeshbluConfig()
+    const query = {
+      owner: meshbluConfig.uuid,
+    }
+    const projection = {
+      uuid: true,
+      name: true,
+      online: true,
+      type: true,
+      logo: true,
+      meshblu: true,
+      octoblu: true,
+    }
 
-    verifyCredentials({ bearerToken }, (error, verified) => {
-      if (error) return this.handleError(error)
-      if (!verified) return browserHistory.push('/settings')
-      this.monitorService = new MonitorService(this.uuid)
-      this.monitorService.monitor((error) => {
-        if(error) return this.setState({error})
-      })
+    this.props.dispatch(search({ query, projection }, meshbluConfig))
+  }
+
+  handleClearSelection = () => {
+    return this.props.dispatch(clearSelectedThings())
+  }
+
+  handleDeleteSelection = () => {
+    const { dispatch, things } = this.props
+
+    return dispatch(deleteSelection(things.selectedThings)).then(() => {
+      dispatch(dismissDeleteDialog())
     })
   }
 
-  componentWillUnmount() {
-    if (this.userFirehose) this.userFirehose.close()
+  handleDeleteDialogShow = () => {
+    this.props.dispatch(showDeleteDialog())
+  }
+
+  handleDeleteDialogDismiss = () => {
+    this.props.dispatch(dismissDeleteDialog())
+  }
+
+  handleTagDialogShow = () => {
+    console.log('handleTagDialogShow');
+    this.props.dispatch(showTagDialog())
+  }
+
+  handleTagDialogDismiss = () => {
+    this.props.dispatch(dismissTagDialog())
+  }
+
+  handleTagSelection = () => {
+    console.log('handleTagSelection');
+  }
+
+  handleThingSelectionToggle = (thingUuid, selected) => {
+    if (selected) return this.props.dispatch(selectThing(thingUuid))
+    return this.props.dispatch(unselectThing(thingUuid))
   }
 
   render() {
-    const {error} = this.state
-
-    if(error) {
-      return <h1> Error: {error.message} </h1>
-    }
-
     return (
-      <div>
-        <h1>Monitor</h1>
-      </div>
+      <ThingsLayout
+        onClearSelection={this.handleClearSelection}
+        onDeleteDialogShow={this.handleDeleteDialogShow}
+        onDeleteDialogDismiss={this.handleDeleteDialogDismiss}
+        onDeleteSelection={this.handleDeleteSelection}
+        onTagDialogShow={this.handleTagDialogShow}
+        onTagDialogDismiss={this.handleTagDialogDismiss}
+        onTagSelection={this.handleTagSelection}
+        onThingSelection={this.handleThingSelectionToggle}
+        things={this.props.things}
+      />
     )
   }
 }
+
+Things.propTypes = propTypes
+
+const mapStateToProps = ({ things }) => {
+  return { things }
+}
+
+export default connect(mapStateToProps)(Things)

@@ -1,18 +1,3 @@
-@keyframes spin {
-  0% {
-    opacity: 0;
-    transform: rotate(0deg);
-  }
-  50% {
-    opacity: 1;
-    transform: rotate(180deg);
-  }
-  100% {
-    opacity: 0;
-    transform: rotate(360deg);
-  }
-}
-
 :local .main {
   padding: 0 1em;
 }
@@ -31,29 +16,5 @@
 
 :local .appBarPrimaryLink:hover {
   color: #fff;
-  background-color: rgba(0,0,0,0.1)
-}
-
-:local .appBarPrimaryLink span {
-  animation-name: spin;
-  animation-duration: 5000ms;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-  display: inline-block;
-}
-
-:local .navIcon {
-  padding: 1em;
-}
-
-:local .navIcon,
-:local .navIcon:active,
-:local .navIcon:focus {
-  color: #E9F2FB;
-}
-
-:local .navIcon:hover {
-  color: #fff;
-  cursor: pointer;
   background-color: rgba(0,0,0,0.1)
 }

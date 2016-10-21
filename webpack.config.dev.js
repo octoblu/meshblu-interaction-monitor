@@ -49,6 +49,9 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
+  node: {
+    fs: "empty"
+  },
   module: {
     loaders: [
       {
@@ -60,11 +63,6 @@ module.exports = {
         test: /\.css$/,
         include: path.join(__dirname, 'node_modules'),
         loader: 'style-loader!css-loader!postcss-loader'
-      },
-      {
-        test: /\.coffee$/,
-        loader: "coffee-loader",
-        include: path.join(__dirname, 'node_modules')
       },
       {
         test:   /\.css$/,
