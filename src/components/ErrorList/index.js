@@ -15,9 +15,9 @@ const defaultProps = {
 
 const ErrorList = ({errors}) => {
   if (_.isEmpty(errors)) return null
-  const errorItems = _.map(errors, (error) => {
+  const errorItems = _.map(errors, (error, index) => {
     return (
-      <li key={JSON.stringify(error)} ><ErrorListItem error={error}/></li>
+      <li key={index}><ErrorListItem error={error}/></li>
     )
   })
 

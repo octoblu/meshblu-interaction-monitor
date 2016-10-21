@@ -25,16 +25,14 @@ const ThingListItem = ({thing, onThingSelection, selected}) => {
 
   const renderErrors = () => {
     if(_.isEmpty(errors)) return
-    if(errors.length == 1)
-    return <span className={styles.errorbadge}>{`1 Error`}</span>
-    return <span className={styles.errorbadge}>{`${errors.length} Errors`}</span>
+    return <span className={styles.errorbadge}>{`${errors.length}`}</span>
   }
 
   const handleClick = _.partial(onThingSelection, thing)
   let classes = styles.root
   if(selected)
     classes = `${styles.root} ${styles.selected}`
-    
+
   return (
     <div className={classes} onClick={handleClick}>
       <div className={styles.logoWrapper}>
