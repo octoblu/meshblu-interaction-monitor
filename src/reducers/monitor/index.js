@@ -3,6 +3,8 @@ import { createReducer } from 'redux-act'
 import { getMonitoredThingsRequest, getMonitoredThingsSuccess, getMonitoredThingsFailure } from '../../actions/MonitoredThingsGet'
 import { getInquisitorRequest, getInquisitorSuccess, getInquisitorFailure } from '../../actions/InquisitorGet'
 
+import {selectMonitoredThingSuccess} from '../../actions/MonitoredThingSelect'
+
 const initialState = {
   things: null,
   inquisitor: null,
@@ -19,5 +21,7 @@ export default createReducer({
   [getInquisitorRequest]: (state) => ({ ...state, fetching: true }),
   [getInquisitorSuccess]: (state, payload) => ({ ...state, inquisitor: payload, fetching: false }),
   [getInquisitorFailure]: (state, payload) => ({ ...state, error: payload, fetching: false }),
+
+  [selectMonitoredThingSuccess]: (state, payload) => ({ ...state, selectedThing: payload }),
 
 }, initialState)

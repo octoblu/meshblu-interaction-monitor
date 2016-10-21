@@ -13,11 +13,13 @@ const MOCK = [
   },
   {
     uuid: '2',
+    type: 'device:endo-exchange',
     name: 'Fake Endo'
   },
   {
     uuid: '3',
     name: 'Some Other Fake Thing With Errors',
+    type: 'device:some-other-thing',
     errors: [{
       message: "Oh No!",
       code: 500

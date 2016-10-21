@@ -17,7 +17,7 @@ const defaultProps = {
   thing: null,
 }
 
-const ThingListItem = ({thing}) => {
+const ThingListItem = ({thing, onThingSelection}) => {
   if (_.isEmpty(thing)) return null
   if (_.isEmpty(thing.uuid)) return null
 
@@ -30,16 +30,16 @@ const ThingListItem = ({thing}) => {
     return <span className={styles.errorbadge}>{`${errors.length} Errors`}</span>
   }
 
+  const handleClick = _.partial(onThingSelection, thing)
+
   return (
-    <div className={styles.root}>
+    <div className={styles.root} onClick={handleClick}>
       <div className={styles.logoWrapper}>
         <DeviceImage type={type} logo={logo} className={styles.logo} />
       </div>
 
       <div className={styles.body}>
-        <Link to={`/things/${uuid}`} className={styles.name}>
-          <ThingName thing={thing} />
-        </Link>
+        <ThingName thing={thing} />
         {renderErrors()}
       </div>
     </div>
