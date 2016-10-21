@@ -17,7 +17,7 @@ const defaultProps = {
   thing: null,
 }
 
-const ThingListItem = ({thing, onThingSelection}) => {
+const ThingListItem = ({thing, onThingSelection, selected}) => {
   if (_.isEmpty(thing)) return null
   if (_.isEmpty(thing.uuid)) return null
 
@@ -31,9 +31,12 @@ const ThingListItem = ({thing, onThingSelection}) => {
   }
 
   const handleClick = _.partial(onThingSelection, thing)
-
+  let classes = styles.root
+  if(selected)
+    classes = `${styles.root} ${styles.selected}`
+    
   return (
-    <div className={styles.root} onClick={handleClick}>
+    <div className={classes} onClick={handleClick}>
       <div className={styles.logoWrapper}>
         <DeviceImage type={type} logo={logo} className={styles.logo} />
       </div>

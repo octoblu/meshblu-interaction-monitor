@@ -14,7 +14,20 @@ const MOCK = [
   {
     uuid: '2',
     type: 'device:endo-exchange',
-    name: 'Fake Endo'
+    name: 'Fake Endo',
+    errors: [{
+      message: "Oh No!",
+      code: 500
+    },
+    {
+      message: "Oh Yeahhhhhhh",
+      code: 600
+    },
+    {
+      message: "Yet again",
+      code: '040'
+    }
+  ]
   },
   {
     uuid: '3',
@@ -24,7 +37,12 @@ const MOCK = [
       message: "Oh No!",
       code: 500
     }]
-  }
+  },
+  {uuid: '4', type: 'hi'},
+  {uuid: '8', type: 'hi'},
+  {uuid: '5', type: 'hi'},
+  {uuid: '6', type: 'hi'},
+  {uuid: '7', type: 'hi'},
 ]
 
 export default function getMonitoredThings({uuid, meshbluConfig}) {

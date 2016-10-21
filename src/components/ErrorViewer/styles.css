@@ -1,7 +1,5 @@
 .root {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 400px;
+  flex: 1;
+  margin: 0 10px;
+  background-color: white;
 }

@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React, { PropTypes } from 'react'
 
-import ErrorViewerItem from '../ThingListItem'
+import ErrorList from '../ErrorList'
 
 import styles from './styles.css'
 
@@ -14,8 +14,13 @@ const defaultProps = {
 }
 
 const ErrorViewer = ({thing}) => {
-  if (_.isEmpty(thing)) return null
-  return <div className={styles.root}>I'm the viewer</div>
+  if(_.isEmpty(thing)) return null
+  const {errors} = thing
+  return (
+    <div className={styles.root}>
+      <ErrorList errors={errors} />
+    </div>
+  )
 }
 
 ErrorViewer.propTypes    = propTypes

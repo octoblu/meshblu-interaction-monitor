@@ -22,12 +22,12 @@ const defaultProps = {
 const ErrorMonitor = ({inquisitor, things, selectedThing, onThingSelection}) => {
   if (_.isEmpty(things)) return null
   if (_.isEmpty(inquisitor)) return null
-  
+
   return (
     <div className={styles.root}>
       <h1>{inquisitor.name}</h1>
       <div className={styles.main}>
-        <ThingList things={things} onThingSelection={onThingSelection} />
+        <ThingList things={things} onThingSelection={onThingSelection} selectedThing={selectedThing} />
         <ErrorViewer thing={selectedThing} />
       </div>
     </div>

@@ -7,24 +7,25 @@ import styles from './styles.css'
 
 const propTypes = {
   onThingSelection: PropTypes.func,
-  selectedThings: PropTypes.array,
+  selectedThing: PropTypes.object,
   things: PropTypes.array,
 }
 
 const defaultProps = {
   onThingSelection: _.noop,
-  selectedThings: [],
+  selectedThing: null,
   things: [],
 }
 
-const ThingList = ({ onThingSelection, things, selectedThings }) => {  
+const ThingList = ({ onThingSelection, things, selectedThing }) => {
   if (_.isEmpty(things)) return null
+  const selectedThingUuid = _.get(selectedThing, 'uuid')
   const thingItems = _.map(things, (thing) => {
     const { uuid } = thing
     return (
       <ThingListItem
         onThingSelection={onThingSelection}
-        selected={!(_.isEmpty(_.find(selectedThings, { uuid })))}
+        selected={uuid === selectedThingUuid}
         thing={thing}
         key={uuid}
       />

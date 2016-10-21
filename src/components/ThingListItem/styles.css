@@ -60,6 +60,6 @@
   justify-content: center;
 }
 
-.checkbox {
-  margin-left: 1em;
+.selected {
+  border: 1px solid black;
 }
