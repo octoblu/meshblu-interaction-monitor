@@ -16,7 +16,7 @@ const Main = ({ children }) => {
     <div>
       <AppBar >
         <AppBarPrimary className={styles.appBarPrimary}>
-          <Link to="/" className={styles.appBarPrimaryLink}>Thing</Link>
+          <Link to="/" className={styles.appBarPrimaryLink}>Monitor</Link>
         </AppBarPrimary>
       </AppBar>
 

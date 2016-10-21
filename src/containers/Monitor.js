@@ -1,111 +1,35 @@
-import pluralize from 'pluralize'
 import React, { PropTypes } from 'react'
-import { search, unregister } from 'redux-meshblu'
 import { connect } from 'react-redux'
-
-import { selectThing, unselectThing } from '../actions/thing'
-import {
-  clearSelectedThings,
-  deleteSelectedThings,
-  deleteSelection,
-  dismissDeleteDialog,
-  showDeleteDialog,
-  dismissTagDialog,
-  showTagDialog,
-
-
-} from '../actions/things'
+import ThingList from '../components/ThingList'
+import getMonitoredThings from  '../actions/monitor'
 import { getMeshbluConfig } from '../services/auth-service'
-
-import ThingsLayout from '../components/ThingsLayout'
 
 const propTypes = {
   dispatch: PropTypes.func,
-  things: PropTypes.object,
+  things: PropTypes.array,
 }
 
-class Things extends React.Component {
+class Monitor extends React.Component {
   componentDidMount() {
-    this.fetchThings()
+    this.fetchMonitoredThings(this.props.params.uuid)
   }
 
-  fetchThings() {
+  fetchMonitoredThings(uuid) {
     const meshbluConfig = getMeshbluConfig()
-    const query = {
-      owner: meshbluConfig.uuid,
-    }
-    const projection = {
-      uuid: true,
-      name: true,
-      online: true,
-      type: true,
-      logo: true,
-      meshblu: true,
-      octoblu: true,
-    }
-
-    this.props.dispatch(search({ query, projection }, meshbluConfig))
-  }
-
-  handleClearSelection = () => {
-    return this.props.dispatch(clearSelectedThings())
-  }
-
-  handleDeleteSelection = () => {
-    const { dispatch, things } = this.props
-
-    return dispatch(deleteSelection(things.selectedThings)).then(() => {
-      dispatch(dismissDeleteDialog())
-    })
-  }
-
-  handleDeleteDialogShow = () => {
-    this.props.dispatch(showDeleteDialog())
-  }
-
-  handleDeleteDialogDismiss = () => {
-    this.props.dispatch(dismissDeleteDialog())
-  }
-
-  handleTagDialogShow = () => {
-    console.log('handleTagDialogShow');
-    this.props.dispatch(showTagDialog())
-  }
-
-  handleTagDialogDismiss = () => {
-    this.props.dispatch(dismissTagDialog())
-  }
-
-  handleTagSelection = () => {
-    console.log('handleTagSelection');
-  }
-
-  handleThingSelectionToggle = (thingUuid, selected) => {
-    if (selected) return this.props.dispatch(selectThing(thingUuid))
-    return this.props.dispatch(unselectThing(thingUuid))
+    this.props.dispatch(getMonitoredThings({uuid, meshbluConfig}))
   }
 
   render() {
     return (
-      <ThingsLayout
-        onClearSelection={this.handleClearSelection}
-        onDeleteDialogShow={this.handleDeleteDialogShow}
-        onDeleteDialogDismiss={this.handleDeleteDialogDismiss}
-        onDeleteSelection={this.handleDeleteSelection}
-        onTagDialogShow={this.handleTagDialogShow}
-        onTagDialogDismiss={this.handleTagDialogDismiss}
-        onTagSelection={this.handleTagSelection}
-        onThingSelection={this.handleThingSelectionToggle}
-        things={this.props.things}
-      />
+      <ThingList things={this.props.things} />
     )
   }
 }
 
-Things.propTypes = propTypes
+Monitor.propTypes = propTypes
 
-const mapStateToProps = ({ things }) => {
-  return { things }
+const mapStateToProps = ({monitor}) => {
+  return monitor
 }
 
-export default connect(mapStateToProps)(Things)
+export default connect(mapStateToProps)(Monitor)

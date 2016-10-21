@@ -1,17 +1,15 @@
 import _ from 'lodash'
 import { createReducer } from 'redux-act'
-import { getDeviceActions } from 'redux-meshblu'
-
-const { getDeviceRequest, getDeviceSuccess, getDeviceFailure } = getDeviceActions
+import { getMonitoredThingsRequest, getMonitoredThingsSuccess, getMonitoredThingsFailure } from '../../actions/monitor'
 
 const initialState = {
-  device: null,
+  things: null,
   error: null,
   fetching: false,
 }
 
 export default createReducer({
-  [getDeviceRequest]: () => ({ ...initialState, fetching: true }),
-  [getDeviceSuccess]: (state, payload) => ({ ...initialState, device: payload, fetching: false }),
-  [getDeviceFailure]: (state, payload) => ({ ...initialState, error: payload, fetching: false }),
+  [getMonitoredThingsRequest]: () => ({ ...initialState, fetching: true }),
+  [getMonitoredThingsSuccess]: (state, payload) => ({ ...initialState, things: payload, fetching: false }),
+  [getMonitoredThingsFailure]: (state, payload) => ({ ...initialState, error: payload, fetching: false }),
 }, initialState)

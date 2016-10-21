@@ -1,0 +1,61 @@
+.root {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  width: 100%;
+  background: white;
+  padding: 1em 0;
+  align-items: center;
+}
+
+.logoWrapper {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  /*background: oldlace;*/
+  justify-content: center;
+  margin-left: 1em;
+}
+
+.logo {
+  display: flex;
+  align-self: center;
+  width: 32px;
+  height: 32px;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  padding: 0 1em;
+  flex-direction: column;
+}
+
+.name {
+  align-self: flex;
+  margin-bottom: 0.4em;
+
+  color: rgba(0, 0, 0, 0.7);
+  text-align: left;
+  text-decoration: none;
+}
+
+.name:hover {
+  /*border: 1px solid rgba(0,0,0,0.25);*/
+}
+
+
+.tag {
+  border-radius: 2px;
+  padding: 0.25em 0.5em;
+
+  color: #FFF;
+  background: #cbd0d4;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.checkbox {
+  margin-left: 1em;
+}

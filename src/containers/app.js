@@ -25,7 +25,7 @@ export default class App extends React.Component {
             </a>
 
             <nav className="OctobluAppBar-nav OctobluAppBar-nav--primary" role="navigation">
-              <Link to="/" className="OctobluAppBar-link">Things</Link>
+              <Link to="/" className="OctobluAppBar-link">Monitor</Link>
             </nav>
           </AppBarPrimary>
 

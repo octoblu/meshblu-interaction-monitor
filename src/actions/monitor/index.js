@@ -1,16 +1,38 @@
 import { createAction } from 'redux-act'
 import {listSubscriptions} from 'redux-meshblu'
 
-export const getMonitoredDevicesRequest = createAction('monitor/devices/get/request')
-export const getMonitoredDevicesSuccess = createAction('monitor/devices/get/success')
-export const getMonitoredDevicesFailure = createAction('monitor/devices/get/failure')
+export const getMonitoredThingsRequest = createAction('monitor/things/get/request')
+export const getMonitoredThingsSuccess = createAction('monitor/things/get/success')
+export const getMonitoredThingsFailure = createAction('monitor/things/get/failure')
 
-export default function getMonitoredDevices(deviceUuid, meshbluConfig) {
+
+const DUMMY_THINGS = [
+  {
+    uuid: '1',
+    name: 'A Fake Room',
+    type: 'device:conference-room',
+    logo: 'https://s3-us-west-2.amazonaws.com/octoblu-icons/device/meeting-room.svg'
+  },
+  {
+    uuid: '2',
+    name: 'Fake Endo'
+  },
+  {
+    uuid: '3',
+    name: 'Some Other Fake Thing With Errors',
+    errors: [{
+      message: "Oh No!",
+      code: 500
+    }]
+  }
+]
+
+export default function getMonitoredThings({uuid, meshbluConfig}) {
   return dispatch => {
-    dispatch(getMonitoredDevicesRequest())
-    return dispatch(listSubscriptions(deviceUuid, meshbluConfig))
+    dispatch(getMonitoredThingsRequest())
+    return dispatch(listSubscriptions(uuid, meshbluConfig))
       .then((subscriptions) => {
-        console.log(subscriptions)
+        return dispatch(getMonitoredThingsSuccess(DUMMY_THINGS))
       }
     )
   }
