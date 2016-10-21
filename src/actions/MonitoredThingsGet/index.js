@@ -1,12 +1,10 @@
 import { createAction } from 'redux-act'
-import {listSubscriptions} from 'redux-meshblu'
 
 export const getMonitoredThingsRequest = createAction('monitor/things/get/request')
 export const getMonitoredThingsSuccess = createAction('monitor/things/get/success')
 export const getMonitoredThingsFailure = createAction('monitor/things/get/failure')
 
-
-const DUMMY_THINGS = [
+const MOCK = [
   {
     uuid: '1',
     name: 'A Fake Room',
@@ -30,10 +28,6 @@ const DUMMY_THINGS = [
 export default function getMonitoredThings({uuid, meshbluConfig}) {
   return dispatch => {
     dispatch(getMonitoredThingsRequest())
-    return dispatch(listSubscriptions(uuid, meshbluConfig))
-      .then((subscriptions) => {
-        return dispatch(getMonitoredThingsSuccess(DUMMY_THINGS))
-      }
-    )
+    return dispatch(getMonitoredThingsSuccess(MOCK))
   }
 }

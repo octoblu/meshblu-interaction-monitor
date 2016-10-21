@@ -17,12 +17,19 @@ const defaultProps = {
   thing: null,
 }
 
-
-const ThingListItem = ({thing }) => {
+const ThingListItem = ({thing}) => {
   if (_.isEmpty(thing)) return null
   if (_.isEmpty(thing.uuid)) return null
 
-  const { uuid, logo, type } = thing
+  const { uuid, logo, type, errors } = thing
+
+  const renderErrors = () => {
+    if(_.isEmpty(errors)) return
+    if(errors.length == 1)
+    return <span className={styles.errorbadge}>{`1 Error`}</span>
+    return <span className={styles.errorbadge}>{`${errors.length} Errors`}</span>
+  }
+
   return (
     <div className={styles.root}>
       <div className={styles.logoWrapper}>
@@ -33,6 +40,7 @@ const ThingListItem = ({thing }) => {
         <Link to={`/things/${uuid}`} className={styles.name}>
           <ThingName thing={thing} />
         </Link>
+        {renderErrors()}
       </div>
     </div>
   )
