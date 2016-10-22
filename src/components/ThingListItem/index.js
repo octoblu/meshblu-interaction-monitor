@@ -19,9 +19,8 @@ const defaultProps = {
 
 const ThingListItem = ({thing, onThingSelection, selected}) => {
   if (_.isEmpty(thing)) return null
-  if (_.isEmpty(thing.uuid)) return null
-
-  const { uuid, logo, type, errors } = thing
+  const {device, errors} = thing
+  const { uuid, logo, type} = device
 
   const renderErrors = () => {
     if(_.isEmpty(errors)) return
@@ -40,7 +39,7 @@ const ThingListItem = ({thing, onThingSelection, selected}) => {
       </div>
 
       <div className={styles.body}>
-        <ThingName thing={thing} />
+        <ThingName thing={device} />
         {renderErrors()}
       </div>
     </div>

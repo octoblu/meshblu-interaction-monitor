@@ -19,9 +19,9 @@ const defaultProps = {
 
 const ThingList = ({ onThingSelection, things, selectedThing }) => {
   if (_.isEmpty(things)) return null
-  const selectedThingUuid = _.get(selectedThing, 'uuid')
+  const selectedThingUuid = _.get(selectedThing, 'device.uuid')
   const thingItems = _.map(things, (thing) => {
-    const { uuid } = thing
+    const uuid = _.get(thing, 'device.uuid')
     return (
       <ThingListItem
         onThingSelection={onThingSelection}

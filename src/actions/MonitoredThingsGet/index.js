@@ -1,53 +1,16 @@
 import { createAction } from 'redux-act'
-
+import Inquisitor from 'meshblu-inquisitor'
 export const getMonitoredThingsRequest = createAction('monitor/things/get/request')
 export const getMonitoredThingsSuccess = createAction('monitor/things/get/success')
 export const getMonitoredThingsFailure = createAction('monitor/things/get/failure')
 
-const MOCK = [
-  {
-    uuid: '1',
-    name: 'A Fake Room',
-    type: 'device:conference-room',
-    logo: 'https://s3-us-west-2.amazonaws.com/octoblu-icons/device/meeting-room.svg'
-  },
-  {
-    uuid: '2',
-    type: 'device:endo-exchange',
-    name: 'Fake Endo',
-    errors: [{
-      message: "Oh No!",
-      code: 500
-    },
-    {
-      message: "Oh Yeahhhhhhh",
-      code: 600
-    },
-    {
-      message: "Yet again",
-      code: '040'
-    }
-  ]
-  },
-  {
-    uuid: '3',
-    name: 'Some Other Fake Thing With Errors',
-    type: 'device:some-other-thing',
-    errors: [{
-      message: "Oh No!",
-      code: 500
-    }]
-  },
-  {uuid: '4', type: 'hi'},
-  {uuid: '8', type: 'hi'},
-  {uuid: '5', type: 'hi'},
-  {uuid: '6', type: 'hi'},
-  {uuid: '7', type: 'hi'},
-]
-
 export default function getMonitoredThings({uuid, meshbluConfig}) {
+  const inquisitor = new Inquisitor({uuid, meshbluConfig})
   return dispatch => {
     dispatch(getMonitoredThingsRequest())
-    return dispatch(getMonitoredThingsSuccess(MOCK))
+    return inquisitor.getMonitoredDevices((error, things) => {
+      if(error) return dispatch(getMonitoredThingsFailure(error))
+      return dispatch(getMonitoredThingsSuccess(things))
+    })
   }
 }
