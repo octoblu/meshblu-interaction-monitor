@@ -1,7 +1,5 @@
 import { expect } from 'chai'
-import { listSubscriptionsActions } from 'redux-meshblu'
-
-import { getMonitoredThingsRequest, getMonitoredThingsSuccess, getMonitoredThingsFailure } from '../../actions/monitor'
+import { getMonitoredThingsRequest, getMonitoredThingsSuccess, getMonitoredThingsFailure } from '../../actions/MonitoredThingsGet'
 
 import reducer from './'
 
@@ -10,6 +8,7 @@ describe('Monitor Reducer', () => {
     things: null,
     error: null,
     fetching: false,
+    inquisitor: null
   }
 
   it('should return the initial state', () => {
