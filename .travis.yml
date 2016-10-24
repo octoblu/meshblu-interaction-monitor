@@ -5,7 +5,7 @@ branches:
   only:
     - '/^v[0-9]/'
 env:
-  global: 'CDN=https://meshblu-interaction-monitor-static.octoblu.com'
+  global: 'CDN=https://interaction-monitor-static.octoblu.com'
 after_success:
   - npm run coverage
   - 'npm run mocha:json'
@@ -24,7 +24,7 @@ deploy:
     access_key_id: AKIAJH2D5IPIRHYJT5IA
     secret_access_key:
       secure: "FzYLIkP1/FVwj9rRIqM+84j/Wz8x/Ei/Q8clFB4Zb6OFH+Y/4oGUQ/6YS721UZMTmu2PusV50eW88E9qWt5+f/6HjmhRwut4qKYdW92eTj31dQxDWcjtqJ8NqAUE8jYLC5qr2fTfiHML6m+h8d2YVogIenvDDyhfE6fGJYtK1Qm5c38j06UG+59qC6EywquYZHgYldV9qYF++7hpYBIE6EGqMNH1yhlIegBHQoQ+vs0TeWUko5r852NqMkcziaP/D+hBJqsKcS+RuY94OkLMZrT43gVNldL8YX2PxrDXpnIKRolsow3EUB3uvIxeuL9s0vOiQErs6GBusW/pu4AVFfdstUT+KFD+E8WJKT2v4vSC+6IoM81fL9MtIOL8Prwd1ThDVer1mPR3w2T6MXPpV8FC1PuLzZemoLwT3xGyLn+Ee4cpglHggG25h113jsdIEr+6xa/u5eTs49qDPtdPrgNpnZpWOB0Fao0WlTYRBGYucPEFJsxRdIbEsGDhnGLgjef2xZkC2iIyupT+vnr+OWbV7T16WSl8za63+4rOdhKATKf1/76YEsu0VgvttjspnIu5I05ebdVElnagXwssgg12mASE8Jg+VYvbi5Lj6OnTEI+z7hFQMdJSslG42MxcB7LMWTTmCpyg94U9Y6kpyQZgHZwKiZXoFeIVUTCncrc="
-    bucket: meshblu-interaction-monitor-static.octoblu.com
+    bucket: interaction-monitor-static.octoblu.com
     local_dir: dpl_assets
     skip_cleanup: true
     region: us-west-2
