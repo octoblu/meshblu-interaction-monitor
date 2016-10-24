@@ -40,4 +40,3 @@ node_modules
 
 # dev files
 .*-dev
-yarn.lock

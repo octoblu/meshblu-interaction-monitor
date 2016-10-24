@@ -5,7 +5,9 @@ branches:
   only:
     - '/^v[0-9]/'
 env:
-  global: 'CDN=https://interaction-monitor-static.octoblu.com'
+  global:
+    - 'CDN=https://interaction-monitor-static.octoblu.com'
+    - 'NODE_ENV=production'
 after_success:
   - npm run coverage
   - 'npm run mocha:json'
