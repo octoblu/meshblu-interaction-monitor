@@ -3,5 +3,5 @@
   flex-direction: column;
   justify-content: flex-start;
   flex-wrap: wrap;
-  width: 400px;
+  min-width: 400px;
 }
