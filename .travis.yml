@@ -1,6 +1,8 @@
 language: node_js
 node_js:
   - '5'
+install:
+  - npm i -g yarn && yarn
 branches:
   only:
     - '/^v[0-9]/'
@@ -13,8 +15,6 @@ after_success:
   - 'npm run mocha:json'
   - 'bash <(curl -s https://codecov.io/bash)'
   - 'bash <(curl -s https://codecov.octoblu.com/bash)'
-before_script:
-  - npm i -g yarn && yarn
 before_deploy:
   - npm run build
   - >-

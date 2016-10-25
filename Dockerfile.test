@@ -1,0 +1,3 @@
+FROM node:5
+WORKDIR /opt/app
+COPY . .
