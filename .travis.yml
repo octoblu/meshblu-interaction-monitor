@@ -9,14 +9,13 @@ branches:
 env:
   global:
     - CDN=https://interaction-monitor-static.octoblu.com
-    - NODE_ENV=production
 after_success:
   - npm run coverage
   - 'npm run mocha:json'
   - 'bash <(curl -s https://codecov.io/bash)'
   - 'bash <(curl -s https://codecov.octoblu.com/bash)'
 before_deploy:
-  - env NODE_ENV=production npm run build
+  - npm run build
   - >-
     export PKG_VERSION="$(node -e
     'console.log(require("./package.json").version)')"
