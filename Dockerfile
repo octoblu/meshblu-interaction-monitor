@@ -1,13 +1,16 @@
-FROM nginx
+FROM nginx:alpine
 MAINTAINER Octoblu <docker@octoblu.com>
 
-COPY package.json .
+HEALTHCHECK CMD curl --fail http://localhost:80/healthcheck || exit 1
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-      ca-certificates \
-      curl \
-      wget \
-      && rm -rf /var/lib/apt/lists/*
+WORKDIR /opt/app
+
+RUN apk add --no-cache \
+  bash \
+  ca-certificates \
+  curl
+
+COPY . .
 
 RUN cat package.json \
       | grep version \
@@ -16,14 +19,11 @@ RUN cat package.json \
       | sed 's/[",]//g' \
       | tr -d '[[:space:]]' > .PKG_VERSION
 
-COPY scripts/ scripts/
-COPY templates/ templates/
-
 RUN sed -e \
   "s/PKG_VERSION/$(cat .PKG_VERSION)/" \
-  /templates/default.template > \
+  ./templates/default.template > \
   /etc/nginx/conf.d/default.conf
 
-RUN cp /templates/*.conf /etc/nginx/conf.d/
+RUN cp ./templates/*.conf /etc/nginx/conf.d/
 
 CMD [ "./scripts/run-nginx.sh" ]

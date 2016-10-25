@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION_PATH="/.PKG_VERSION"
+VERSION_PATH="/opt/app/.PKG_VERSION"
 
 download_index() {
 	local cdn="$1"
@@ -11,6 +11,7 @@ download_index() {
 }
 
 start_nginx() {
+	echo "starting nginx"
   nginx -g 'daemon off;'
 }
 
