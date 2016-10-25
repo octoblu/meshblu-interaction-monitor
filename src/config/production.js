@@ -1,5 +1,5 @@
 export const MESHBLU_HOST       = 'meshblu.octoblu.com'
-export const OAUTH_CLIENT_ID    = '74a83593-3d82-47d8-b639-3a293eb3767f'
+export const OAUTH_CLIENT_ID    = '04c42cc3-8e37-4b4a-a455-2c7db14d1b4a'
 export const OAUTH_PROVIDER_URI = 'https://oauth.octoblu.com'
 export const OCTOBLU_URL        = 'https://app.octoblu.com'
 export const OCTOBLU_API_URL    = 'https://api.octoblu.com'
