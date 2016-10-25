@@ -8,15 +8,21 @@ export function getMeshbluConfig() {
 
   if (!bearerToken) return null
 
-  const bearerTokenEnvelope = atob(bearerToken)
-  const bearerTokenPieces   = bearerTokenEnvelope.split(':')
+  try {
+    const bearerTokenEnvelope = atob(bearerToken)
+    const bearerTokenPieces   = bearerTokenEnvelope.split(':')
 
-  return {
-    uuid: bearerTokenPieces[0],
-    token: bearerTokenPieces[1],
-    hostname: MESHBLU_HOST,
-    port: 443,
+    return {
+      uuid: bearerTokenPieces[0],
+      token: bearerTokenPieces[1],
+      hostname: MESHBLU_HOST,
+      port: 443,
+    }
   }
+  catch(error) {
+    return null
+  }
+
 }
 
 export function fetchOctobluUser(callback) {
