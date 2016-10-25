@@ -8,8 +8,8 @@ branches:
     - '/^v[0-9]/'
 env:
   global:
-    - 'CDN=https://interaction-monitor-static.octoblu.com'
-    - 'NODE_ENV=production'
+    - CDN=https://interaction-monitor-static.octoblu.com
+    - NODE_ENV=production
 after_success:
   - npm run coverage
   - 'npm run mocha:json'
