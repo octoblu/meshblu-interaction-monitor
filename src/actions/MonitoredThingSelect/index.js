@@ -4,6 +4,6 @@ export const selectMonitoredThingSuccess = createAction('monitor/things/get/succ
 
 export default function selectMonitoredThing(selectedThing) {
   return dispatch => {
-    return dispatch(selectMonitoredThingSuccess(selectedThing))
+    return dispatch(selectMonitoredThingSuccess(selectedThing.statusDevice))
   }
 }

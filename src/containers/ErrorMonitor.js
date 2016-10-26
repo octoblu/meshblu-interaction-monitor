@@ -58,7 +58,13 @@ class ErrorMonitor extends React.Component {
 ErrorMonitor.propTypes = propTypes
 
 const mapStateToProps = ({monitor, meshblu, inquisitor}) => {
-  return {...monitor, meshbluConfig: meshblu.meshbluConfig, inquisitor: inquisitor.device, connectionStatus: inquisitor.connectionStatus }
+  return {
+    things: monitor.things,
+    selectedThing: _.find(monitor.things, {statusDevice: monitor.selectedThing}),
+    meshbluConfig: meshblu.meshbluConfig,
+    inquisitor: inquisitor.device,
+    connectionStatus: inquisitor.connectionStatus,
+  }
 }
 
 export default connect(mapStateToProps)(ErrorMonitor)

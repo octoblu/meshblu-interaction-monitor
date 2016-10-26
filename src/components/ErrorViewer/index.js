@@ -22,7 +22,7 @@ const ErrorViewer = ({thing, onClearErrors}) => {
   return (
     <div className={styles.root}>
       <button onClick={clearErrors}>Clear Errors</button>
-      <ErrorList errors={errors} />
+      <ErrorList statusDevice={statusDevice} errors={errors} />
     </div>
   )
 }

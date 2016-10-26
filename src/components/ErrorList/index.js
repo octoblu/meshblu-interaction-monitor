@@ -6,18 +6,21 @@ import styles from './styles.css'
 import ErrorListItem from '../ErrorListItem'
 
 const propTypes = {
-  errors: PropTypes.array
+  errors: PropTypes.array,
+  statusDevice: PropTypes.string,
 }
 
 const defaultProps = {
-  errors: null
+  errors: null,
+  uuid: null,
 }
 
-const ErrorList = ({errors}) => {
+const ErrorList = ({statusDevice, errors}) => {
+  console.log('rendering ErrorList', errors)
   if (_.isEmpty(errors)) return null
   const errorItems = _.map(errors, (error, index) => {
     return (
-      <li key={index}><ErrorListItem error={error}/></li>
+      <li key={`${statusDevice}:${index}`}><ErrorListItem error={error}/></li>
     )
   })
 
