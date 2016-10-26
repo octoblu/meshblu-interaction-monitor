@@ -17,6 +17,7 @@ export function getMeshbluConfig() {
       token: bearerTokenPieces[1],
       hostname: MESHBLU_HOST,
       port: 443,
+      protocol: 'https',
     }
   }
   catch(error) {

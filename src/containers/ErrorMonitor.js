@@ -4,6 +4,7 @@ import ErrorMonitorLayout from '../components/ErrorMonitorLayout'
 import getMonitoredThings from  '../actions/MonitoredThingsGet'
 import selectMonitoredThing from  '../actions/MonitoredThingSelect'
 import getInquisitor from  '../actions/InquisitorGet'
+import connectInquisitor from  '../actions/InquisitorConnect'
 import getMeshbluConfig from '../actions/MeshbluConfigGet'
 import clearErrors from '../actions/ErrorsClear'
 import _ from 'lodash'
@@ -22,9 +23,13 @@ class ErrorMonitor extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const uuid = this.props.params.uuid
-    const {meshbluConfig, inquisitor, things, fetching} = nextProps
+    const {meshbluConfig, inquisitor, things, fetching, connectionStatus} = nextProps
     if(!inquisitor) this.props.dispatch(getInquisitor({uuid, meshbluConfig}))
     if(!things) this.props.dispatch(getMonitoredThings({uuid, meshbluConfig}))
+
+    if(connectionStatus == 'initial' && !_.isEmpty(meshbluConfig)) {
+      this.props.dispatch(connectInquisitor({uuid, meshbluConfig}))
+    }
   }
 
   handleThingSelection = (thing) => {
@@ -37,6 +42,7 @@ class ErrorMonitor extends React.Component {
   }
 
   render() {
+    console.log('rendering ErrorMonitor')
     const {things, inquisitor, selectedThing} = this.props
     return (
       <ErrorMonitorLayout
@@ -51,8 +57,8 @@ class ErrorMonitor extends React.Component {
 
 ErrorMonitor.propTypes = propTypes
 
-const mapStateToProps = ({monitor, meshblu}) => {
-  return {...monitor, meshbluConfig: meshblu.meshbluConfig}
+const mapStateToProps = ({monitor, meshblu, inquisitor}) => {
+  return {...monitor, meshbluConfig: meshblu.meshbluConfig, inquisitor: inquisitor.device, connectionStatus: inquisitor.connectionStatus }
 }
 
 export default connect(mapStateToProps)(ErrorMonitor)
