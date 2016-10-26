@@ -6,18 +6,22 @@ import ErrorList from '../ErrorList'
 import styles from './styles.css'
 
 const propTypes = {
-  thing: PropTypes.object
+  thing: PropTypes.object,
+  onClearErrors: PropTypes.func,
 }
 
 const defaultProps = {
-  thing: null
+  thing: null,
+  onClearErrors: _.noop,
 }
 
-const ErrorViewer = ({thing}) => {
+const ErrorViewer = ({thing, onClearErrors}) => {
   if(_.isEmpty(thing)) return null
-  const {errors} = thing
+  const {errors, statusDevice} = thing
+  const clearErrors = _.partial(onClearErrors, statusDevice)
   return (
     <div className={styles.root}>
+      <button onClick={clearErrors}>Clear Errors</button>
       <ErrorList errors={errors} />
     </div>
   )

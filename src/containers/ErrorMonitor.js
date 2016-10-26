@@ -5,6 +5,7 @@ import getMonitoredThings from  '../actions/MonitoredThingsGet'
 import selectMonitoredThing from  '../actions/MonitoredThingSelect'
 import getInquisitor from  '../actions/InquisitorGet'
 import getMeshbluConfig from '../actions/MeshbluConfigGet'
+import clearErrors from '../actions/ErrorsClear'
 import _ from 'lodash'
 
 const propTypes = {
@@ -30,6 +31,11 @@ class ErrorMonitor extends React.Component {
     this.props.dispatch(selectMonitoredThing(thing))
   }
 
+  handleClearErrors = (uuid) => {
+    const {meshbluConfig} = this.props
+    this.props.dispatch(clearErrors({uuid, meshbluConfig}))
+  }
+
   render() {
     const {things, inquisitor, selectedThing} = this.props
     return (
@@ -37,6 +43,7 @@ class ErrorMonitor extends React.Component {
         things={this.props.things}
         inquisitor={this.props.inquisitor}
         onThingSelection={this.handleThingSelection}
+        onClearErrors={this.handleClearErrors}
         selectedThing={selectedThing} />
     )
   }

@@ -10,16 +10,18 @@ const propTypes = {
   things: PropTypes.array,
   selectedThing: PropTypes.object,
   onThingSelection: PropTypes.func,
+  onClearErrors: PropTypes.func,
 }
 
 const defaultProps = {
   inquisitor: null,
   things: null,
   selectedThing: null,
-  onThingSelection: _.noop
+  onThingSelection: _.noop,
+  onClearErrors: _.noop,
 }
 
-const ErrorMonitor = ({inquisitor, things, selectedThing, onThingSelection}) => {
+const ErrorMonitor = ({inquisitor, things, selectedThing, onThingSelection, onClearErrors}) => {
   if (_.isEmpty(things)) return null
   if (_.isEmpty(inquisitor)) return null
 
@@ -28,7 +30,7 @@ const ErrorMonitor = ({inquisitor, things, selectedThing, onThingSelection}) => 
       <h1>{inquisitor.name}</h1>
       <div className={styles.main}>
         <ThingList things={things} onThingSelection={onThingSelection} selectedThing={selectedThing} />
-        <ErrorViewer thing={selectedThing} />
+        <ErrorViewer thing={selectedThing} onClearErrors={onClearErrors}/>
       </div>
     </div>
   )
