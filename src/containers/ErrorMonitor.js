@@ -42,7 +42,6 @@ class ErrorMonitor extends React.Component {
   }
 
   render() {
-    console.log('rendering ErrorMonitor')
     const {things, inquisitor, selectedThing} = this.props
     return (
       <ErrorMonitorLayout

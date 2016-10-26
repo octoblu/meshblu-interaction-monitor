@@ -1,12 +1,12 @@
 {
   "name": "meshblu-interaction-monitor",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "meshblu-interaction-monitor",
   "main": "index.js",
   "scripts": {
     "clean": "rimraf dist",
     "coverage": "nyc npm test",
-    "build": "env NODE_ENV=production webpack --config ./webpack.config.prod.js",
+    "build": "NODE_ENV=production webpack --config ./webpack.config.prod.js",
     "start": "node scripts/start.js",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
