@@ -2692,6 +2692,10 @@ eventemitter2@^1.0.0:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/eventemitter2/-/eventemitter2-1.0.5.tgz#f983610517b1737c0b9dc643beca93893c04df18"
 
+eventemitter2@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/eventemitter2/-/eventemitter2-2.1.3.tgz#bd7201f85c59548380e1e43b3f6a7286d4da7349"
+
 eventemitter3@1.x.x:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-1.2.0.tgz#1c86991d816ad1e504750e73874224ecf3bec508"
@@ -4364,13 +4368,14 @@ meshblu-firehose-socket.io@^1.7.1:
     lodash "^4.7.0"
     socket.io-client "^1.4.5"
 
-meshblu-inquisitor@^1.3.4:
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/meshblu-inquisitor/-/meshblu-inquisitor-1.3.4.tgz#3a1fd2cff1b14630de306a9b6956fd348362c275"
+meshblu-inquisitor@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/meshblu-inquisitor/-/meshblu-inquisitor-2.1.0.tgz#0090f483c4e34e7cae3a5a0cdce471447ad156a9"
   dependencies:
     async "^2.1.2"
     browser-meshblu-http "^5.4.0"
     dashdash "^1.14.0"
+    eventemitter2 "^2.1.3"
     lodash "^4.16.4"
     meshblu-config "^6.0.0"
     meshblu-firehose-socket.io "^1.7.1"
@@ -5749,9 +5754,9 @@ redux-logger@^2.7.0:
   dependencies:
     deep-diff "0.3.4"
 
-redux-meshblu@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/redux-meshblu/-/redux-meshblu-3.0.1.tgz#d7245a0aec5bc1b6259d5215a43dea3bb2abddd4"
+redux-meshblu@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/redux-meshblu/-/redux-meshblu-4.1.0.tgz#2a46d308271a114293017f568f082fa8ff3a6a25"
   dependencies:
     browser-meshblu-http "^5.2.9"
     redux "^3.5.2"
@@ -6259,6 +6264,10 @@ split2@^0.2.1:
   resolved "https://registry.yarnpkg.com/split2/-/split2-0.2.1.tgz#02ddac9adc03ec0bb78c1282ec079ca6e85ae900"
   dependencies:
     through2 "~0.6.1"
+
+springy@^2.7.1:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/springy/-/springy-2.7.1.tgz#bc2a2543d31cee9eed7541404b13593cd36377c5"
 
 sprintf-js@~1.0.2:
   version "1.0.3"

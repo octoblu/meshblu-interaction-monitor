@@ -37,22 +37,18 @@ const MOCK = {
         more: 'new-stuff'
       }
     },
-  ],
-  subscriptions: [
-    {subscriberUuid: 'device-1', emitterUuid: 'device-2', type: 'configure.received'},
-    {subscriberUuid: 'device-3', emitterUuid: 'device-2', type: 'message.received'},
   ]
 }
 
-const renderClear = () => console.log('clear')
-const renderDrawEdge = (edge, pt1, pt2) => console.log('renderDrawEdge', edge, pt1, pt2)
-const renderDrawNode = (node, p) => console.log('renderDrawNode', node, p)
-
-export default function connectInteractionGraph({uuid, meshbluConfig}) {
+export default function connectInteractionGraph({subscriptions, uuid, meshbluConfig}) {
   return (dispatch) => {
     const graph = new Springy.Graph()
     const nodes = _.map(MOCK.things, 'uuid')
-    const edges = _.map(MOCK.subscriptions, ({emitterUuid, subscriberUuid}) => [emitterUuid, subscriberUuid])
+    const edges = _.map(subscriptions, ({emitterUuid, subscriberUuid}) => [emitterUuid, subscriberUuid])
+    console.log({nodes, edges})
+    const renderClear = () => dispatch(clearInteractionGraph())
+    const renderDrawEdge = (edge, emitter, subscriber) => dispatch(updateEdgeInteractionGraph({edge, emitter, subscriber}))
+    const renderDrawNode = (node, vector) => dispatch(updateNodeInteractionGraph({node, vector}))
     graph.loadJSON({nodes, edges})
     const layout = new Springy.Layout.ForceDirected(graph, 400.0, 400.0, 0.5)
     const renderer = new Springy.Renderer(layout, renderClear, renderDrawEdge, renderDrawNode)
