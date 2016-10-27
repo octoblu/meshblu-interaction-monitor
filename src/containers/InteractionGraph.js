@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
+import connectInquisitor from  '../actions/InquisitorConnect'
 import getMeshbluConfig from '../actions/MeshbluConfigGet'
 import connectInteractionGraph from '../actions/InteractionGraphConnect'
 import getInteractionSubscriptions from '../actions/InteractionSubscriptionsGet'
@@ -24,7 +25,11 @@ class InteractionGraph extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const uuid = this.props.params.uuid
-    const {meshbluConfig, graph, subscriptions, things} = nextProps
+    const {meshbluConfig, graph, subscriptions, things, connectionStatus} = nextProps
+
+    if(connectionStatus == 'initial' && !_.isEmpty(meshbluConfig)) {
+      this.props.dispatch(connectInquisitor({uuid, meshbluConfig}))
+    }
 
     if(!subscriptions) return this.props.dispatch(getInteractionSubscriptions({uuid, meshbluConfig}))
     if(!things) return this.props.dispatch(getMonitoredThings({uuid, meshbluConfig}))
@@ -32,6 +37,7 @@ class InteractionGraph extends React.Component {
   }
 
   render() {
+    console.log('rendering InteractionGraph')
     const {graph, subscriptions, things} = this.props
     if(_.isEmpty(graph)) return <h1> Waiting for graph </h1>
     const {nodes} = graph
@@ -65,12 +71,13 @@ class InteractionGraph extends React.Component {
 
 InteractionGraph.propTypes = propTypes
 
-const mapStateToProps = ({meshblu, interaction, monitor}) => {
+const mapStateToProps = ({meshblu, interaction, inquisitor, monitor}) => {
   return {
     graph: interaction.graph,
     meshbluConfig: meshblu.meshbluConfig,
     subscriptions: interaction.subscriptions,
     things: monitor.things,
+    connectionStatus: inquisitor.connectionStatus,
   }
 }
 

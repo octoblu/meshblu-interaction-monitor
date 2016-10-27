@@ -30,18 +30,25 @@ const NodeLogo = ({device}) => {
   const logoUrl = getDeviceIconUrl(device)
   if(_.isEmpty(logoUrl)) return null
   return (
-    <image xlink="http://www.w3.org/1999/xlink" href={logoUrl} preserveAspectRatio="xMidYMax" x="-5" y="-5" width="10" height="10"/>
+    <image href={logoUrl} preserveAspectRatio="xMidYMax" x="-5" y="-5" width="10" height="10"/>
   )
 }
 
+const NodeErrors = ({errors}) => {
+  if(_.isEmpty(errors)) return null
+  return <circle cx="6" cy="-6" r="1.5" fill="red"/>
+}
+
 const InteractionNode = ({thing, x, y}) => {
+  console.log('InteractionNode', {thing, x, y})
   if (_.isEmpty(thing)) return null
-  const {uuid, device} = thing
+  const {uuid, device, errors} = thing
   const name = device.name || device.uuid
 
   return (
     <svg width="10" height="3" x={x-5} y={y-1.5} key={uuid} viewBox="-10 -10 20 20">
         <NodeLogo device={device}/>
+        <NodeErrors errors={errors}/>
         <text x="0" y="8" fontSize="3" alignmentBaseline="middle" textAnchor="middle">{name}</text>
     </svg>
   )
