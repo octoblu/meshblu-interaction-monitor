@@ -16,7 +16,6 @@ const defaultProps = {
 }
 
 const ErrorList = ({statusDevice, errors}) => {
-  console.log('rendering ErrorList', errors)
   if (_.isEmpty(errors)) return null
   const errorItems = _.map(errors, (error, index) => {
     return (

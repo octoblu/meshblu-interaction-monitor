@@ -22,11 +22,7 @@ module.exports = {
   output: {
     // The build folder.
     path: path.join(__dirname, 'dist'),
-    // Generated JS file names (with nested folders).
-    // There will be one main bundle, and one file per asynchronous chunk.
-    // We don't currently advertise code splitting but Webpack supports it.
     filename: 'js/[name].js',
-    chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
     // We inferred the "public path" (such as / or /my-project) from homepage.
     publicPath: process.env.CDN + '/v' + PKG_VERSION
   },
@@ -39,7 +35,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
+        'NODE_ENV': '"production"'
       }
     }),
     // Generates an `index.html` file with the <script> injected.
@@ -54,7 +50,6 @@ module.exports = {
         removeEmptyAttributes: true,
         removeStyleLinkTypeAttributes: true,
         keepClosingSlash: true,
-        minifyJS: true,
         minifyCSS: true,
         minifyURLs: true
       }
@@ -62,21 +57,7 @@ module.exports = {
     // This helps ensure the builds are consistent if source hasn't changed:
     new webpack.optimize.OccurrenceOrderPlugin(),
     // Try to dedupe duplicated modules, if any:
-    new webpack.optimize.DedupePlugin(),
-    // Minify the code.
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        screw_ie8: true, // React doesn't support IE8
-        warnings: false
-      },
-      mangle: {
-        screw_ie8: true
-      },
-      output: {
-        comments: false,
-        screw_ie8: true
-      }
-    }),
+    new webpack.optimize.DedupePlugin(),    
   ],
   node: {
     fs: "empty"
