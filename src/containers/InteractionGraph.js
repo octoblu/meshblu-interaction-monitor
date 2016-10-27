@@ -4,12 +4,16 @@ import { connect } from 'react-redux'
 import getMeshbluConfig from '../actions/MeshbluConfigGet'
 import connectInteractionGraph from '../actions/InteractionGraphConnect'
 import getInteractionSubscriptions from '../actions/InteractionSubscriptionsGet'
+import getMonitoredThings from  '../actions/MonitoredThingsGet'
 import clearErrors from '../actions/ErrorsClear'
+import InteractionNode from '../components/InteractionNode'
 import _ from 'lodash'
 
 const propTypes = {
   graph: PropTypes.object,
   meshbluConfig: PropTypes.object,
+  subscriptions: PropTypes.array,
+  things: PropTypes.array,
 }
 
 class InteractionGraph extends React.Component {
@@ -20,33 +24,32 @@ class InteractionGraph extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const uuid = this.props.params.uuid
-    const {meshbluConfig, graph, subscriptions} = nextProps
+    const {meshbluConfig, graph, subscriptions, things} = nextProps
+
     if(!subscriptions) return this.props.dispatch(getInteractionSubscriptions({uuid, meshbluConfig}))
-    if(_.isEmpty(graph)) this.props.dispatch(connectInteractionGraph({subscriptions, uuid, meshbluConfig}))
-    // if(connectionStatus == 'initial' && !_.isEmpty(meshbluConfig)) {
-    //   this.props.dispatch(connectInquisitor({uuid, meshbluConfig}))
-    // }
+    if(!things) return this.props.dispatch(getMonitoredThings({uuid, meshbluConfig}))
+    if(_.isEmpty(graph)) this.props.dispatch(connectInteractionGraph({things: things, subscriptions, uuid, meshbluConfig}))
   }
 
   render() {
-    const {graph, subscriptions} = this.props
+    const {graph, subscriptions, things} = this.props
     if(_.isEmpty(graph)) return <h1> Waiting for graph </h1>
     const {nodes} = graph
     return (
       <div>
         <h1>Sup G Money</h1>
         <svg viewBox="-10 -10 20 20">
-            {this.renderNodes(nodes)}
+            {this.renderNodes({nodes, things})}
             {this.renderEdges({subscriptions, nodes})}
         </svg>
       </div>
     )
   }
 
-  renderNodes (nodes) {
-    console.log(nodes)
-    return _.map(nodes, function(node, id){
-      return <circle key={id} cx={`${node.x}`} cy={`${node.y}`} r=".1"/>
+  renderNodes ({nodes, things}) {
+    return _.map(nodes, function(node, uuid){
+      const thing = _.find(things, {uuid})
+      return <InteractionNode key={uuid} x={node.x} y={node.y} thing={thing} />
     })
   }
 
@@ -62,11 +65,12 @@ class InteractionGraph extends React.Component {
 
 InteractionGraph.propTypes = propTypes
 
-const mapStateToProps = ({meshblu, interaction}) => {
+const mapStateToProps = ({meshblu, interaction, monitor}) => {
   return {
     graph: interaction.graph,
     meshbluConfig: meshblu.meshbluConfig,
     subscriptions: interaction.subscriptions,
+    things: monitor.things,
   }
 }
 
