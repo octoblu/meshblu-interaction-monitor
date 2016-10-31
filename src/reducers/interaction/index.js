@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { createReducer } from 'redux-act'
-import { connectInteractionGraphSuccess, updateNodeInteractionGraph, updateEdgeInteractionGraph, clearInteractionGraph } from '../../actions/InteractionGraphConnect'
+import { connectInteractionGraphSuccess, updateNodeInteractionGraph, addEdgeInteractionGraphSuccess, clearInteractionGraph } from '../../actions/InteractionGraphConnect'
 import {getMonitoredSubscriptionsSuccess} from '../../actions/MonitoredSubscriptionsGet'
 
 const initialState = {
@@ -17,11 +17,20 @@ const reduceUpdateNode = (state, {node, vector}) => {
   return {...state, graph}
 }
 
-console.log("Hello world from reducers/interaction/index.js")
-console.log({connectInteractionGraphSuccess, updateNodeInteractionGraph, updateEdgeInteractionGraph, clearInteractionGraph})
+const reduceUpdateEdge = (state, {emitterUuid, subscriberUuid, type}) => {
+  const subscriptions = _.clone(state.subscriptions || [])
+
+  if(_.find(subscriptions, {emitterUuid, subscriberUuid, type})) return state
+
+  subscriptions.push({emitterUuid, subscriberUuid, type})
+
+  return {...state, subscriptions}
+}
+
 export default createReducer({
-  [connectInteractionGraphSuccess]: (state, payload) => ({ ...state, fetching: false, graph: {nodes: {}, edges: {}} }),
-  [clearInteractionGraph]: (state, payload) => ({ ...state, fetching: false, graph: {nodes: {}, edges: {}} }),
+  [connectInteractionGraphSuccess]: (state, payload) => ({ ...state, fetching: false, graph: {nodes: {}, edges: []} }),
+  [clearInteractionGraph]: (state, payload) => ({ ...state, fetching: false, graph: {nodes: {}, edges: []} }),
   [updateNodeInteractionGraph]: reduceUpdateNode,
+  [addEdgeInteractionGraphSuccess]: reduceUpdateEdge,
   [getMonitoredSubscriptionsSuccess]: (state, payload) => ({ ...state, subscriptions: payload }),
 }, initialState)

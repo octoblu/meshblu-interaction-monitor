@@ -19,7 +19,6 @@ const propTypes = {
 
 class InteractionGraph extends React.Component {
   componentDidMount() {
-    console.log('componentDidMount')
     this.props.dispatch(getMeshbluConfig())
   }
 
@@ -37,7 +36,6 @@ class InteractionGraph extends React.Component {
   }
 
   render() {
-    console.log('rendering InteractionGraph')
     const {graph, subscriptions, things} = this.props
     if(_.isEmpty(graph)) return <h1> Waiting for graph </h1>
     const {nodes} = graph
@@ -45,8 +43,8 @@ class InteractionGraph extends React.Component {
       <div>
         <h1>Sup G Money</h1>
         <svg viewBox="-10 -10 20 20">
-            {this.renderNodes({nodes, things})}
             {this.renderEdges({subscriptions, nodes})}
+            {this.renderNodes({nodes, things})}
         </svg>
       </div>
     )
@@ -60,11 +58,14 @@ class InteractionGraph extends React.Component {
   }
 
   renderEdges ({subscriptions, nodes}) {
-    return _.map(subscriptions, ({subscriberUuid, emitterUuid}) => {
+    return _.map(subscriptions, ({subscriberUuid, emitterUuid, type}) => {
+      if (subscriberUuid == emitterUuid) return
       const subscriber = nodes[subscriberUuid]
       const emitter = nodes[emitterUuid]
       if(!subscriber || !emitter) return
-      return <line x1={`${subscriber.x}`} y1={`${subscriber.y}`} x2={`${emitter.x}`} y2={`${emitter.y}`} strokeWidth=".01" stroke="black" />
+      const lineKey = `${subscriberUuid}:${emitterUuid}:${type}`
+
+      return <line key={lineKey} x1={subscriber.x} y1={subscriber.y} x2={emitter.x} y2={emitter.y} strokeWidth=".05" stroke="black" />
     })
   }
 }

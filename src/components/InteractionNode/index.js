@@ -40,8 +40,9 @@ const NodeErrors = ({errors}) => {
 }
 
 const InteractionNode = ({thing, x, y}) => {
-  console.log('InteractionNode', {thing, x, y})
-  if (_.isEmpty(thing)) return null
+  if (_.isEmpty(thing)) {
+    return null
+  }
   const {uuid, device, errors} = thing
   const name = device.name || device.uuid
 

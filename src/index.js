@@ -12,7 +12,7 @@ import reducers from './reducers/'
 
 const createStoreWithMiddleware = applyMiddleware(
   thunkMiddleware,
-  createLogger(),
+  //createLogger(),
   routerMiddleware(browserHistory)
 )
 
