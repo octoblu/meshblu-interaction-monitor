@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { createReducer } from 'redux-act'
 import { getMonitoredThingsRequest, getMonitoredThingsSuccess, getMonitoredThingsFailure } from '../../actions/MonitoredThingsGet'
+import { getMonitoredSubscriptionsRequest, getMonitoredSubscriptionsSuccess, getMonitoredSubscriptionsFailure } from '../../actions/MonitoredSubscriptionsGet'
 import { getInquisitorRequest, getInquisitorSuccess, getInquisitorFailure } from '../../actions/InquisitorGet'
 import { monitoredDeviceUpdate } from '../../actions/InquisitorConnect'
 
@@ -18,6 +19,10 @@ export default createReducer({
   [getMonitoredThingsRequest]: (state) => ({ ...state, fetching: true }),
   [getMonitoredThingsSuccess]: (state, payload) => ({ ...state, things: payload, fetching: false }),
   [getMonitoredThingsFailure]: (state, payload) => ({ ...state, error: payload, fetching: false }),
+
+  [getMonitoredSubscriptionsRequest]: (state) => ({ ...state, fetching: true }),
+  [getMonitoredSubscriptionsSuccess]: (state, payload) => ({ ...state, subscriptions: payload, fetching: false }),
+  [getMonitoredSubscriptionsFailure]: (state, payload) => ({ ...state, error: payload, fetching: false }),
 
   [getInquisitorRequest]: (state) => ({ ...state, fetching: true }),
   [getInquisitorSuccess]: (state, payload) => ({ ...state, inquisitor: payload, fetching: false }),

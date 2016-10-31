@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import connectInquisitor from  '../actions/InquisitorConnect'
 import getMeshbluConfig from '../actions/MeshbluConfigGet'
 import connectInteractionGraph from '../actions/InteractionGraphConnect'
-import getInteractionSubscriptions from '../actions/InteractionSubscriptionsGet'
+import getMonitoredSubscriptions from '../actions/MonitoredSubscriptionsGet'
 import getMonitoredThings from  '../actions/MonitoredThingsGet'
 import clearErrors from '../actions/ErrorsClear'
 import InteractionNode from '../components/InteractionNode'
@@ -31,7 +31,7 @@ class InteractionGraph extends React.Component {
       this.props.dispatch(connectInquisitor({uuid, meshbluConfig}))
     }
 
-    if(!subscriptions) return this.props.dispatch(getInteractionSubscriptions({uuid, meshbluConfig}))
+    if(!subscriptions) return this.props.dispatch(getMonitoredSubscriptions({uuid, meshbluConfig}))
     if(!things) return this.props.dispatch(getMonitoredThings({uuid, meshbluConfig}))
     if(_.isEmpty(graph)) this.props.dispatch(connectInteractionGraph({things: things, subscriptions, uuid, meshbluConfig}))
   }
