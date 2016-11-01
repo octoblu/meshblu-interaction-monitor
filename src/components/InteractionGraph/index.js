@@ -35,7 +35,6 @@ const renderNodes = ({nodes, things, currentMessage}) => {
     let selected = false
 
     if(currentMessage) {
-      console.log({currentMessage})
       selected = _.some(currentMessage.metadata.route, ({from, to}) => uuid === from || uuid === to)
     }
     return <InteractionNode key={uuid} x={node.x} y={node.y} thing={thing} selected={selected} />
