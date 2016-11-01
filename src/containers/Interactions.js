@@ -14,7 +14,7 @@ const propTypes = {
   graph: PropTypes.object,
   meshbluConfig: PropTypes.object,
   subscriptions: PropTypes.array,
-  things: PropTypes.array,
+  things: PropTypes.object,
   messages: PropTypes.array,
 }
 

@@ -7,7 +7,7 @@ import styles from './styles.css'
 
 const propTypes = {
   inquisitor: PropTypes.object,
-  things: PropTypes.array,
+  things: PropTypes.object,
   selectedThing: PropTypes.object,
   onThingSelection: PropTypes.func,
   onClearErrors: PropTypes.func,
@@ -21,10 +21,9 @@ const defaultProps = {
   onClearErrors: _.noop,
 }
 
-const ErrorMonitor = ({inquisitor, things, selectedThing, onThingSelection, onClearErrors}) => {
+const ErrorMonitor = ({inquisitor, things, selectedThing, onThingSelection, onClearErrors}) => {  
   if (_.isEmpty(things)) return null
   if (_.isEmpty(inquisitor)) return null
-
   return (
     <div className={styles.root}>
       <h1>{inquisitor.name}</h1>

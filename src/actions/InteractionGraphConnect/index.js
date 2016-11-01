@@ -28,7 +28,7 @@ export function addEdge({emitterUuid, subscriberUuid, type}) {
 export default function connectInteractionGraph({things, subscriptions, uuid, meshbluConfig}) {
   return (dispatch) => {
 
-    const nodes = _.map(things, 'uuid')
+    const nodes = _.keys(things)
     const edges = []
 
     const renderClear = () => dispatch(clearInteractionGraph())

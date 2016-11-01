@@ -16,6 +16,7 @@ const initialState = {
 
 
 const addMessageCountToThing = (state, {metadata}) => {
+  const inquisitorUuid = _.last(metadata.route).to
   const hop = _.find(metadata.route, {to: "50612acd-fd0c-4607-afb3-038c8d3776d9"})
 
   if(!hop) {
@@ -25,7 +26,7 @@ const addMessageCountToThing = (state, {metadata}) => {
 
   const {type, from} = hop
   const direction = _.split(type, '.')[1]
-  console.log({from, direction})
+  // console.log(state.things)
   return state
 }
 
@@ -43,11 +44,11 @@ export default createReducer({
   [getInquisitorFailure]: (state, payload) => ({ ...state, error: payload, fetching: false }),
   [monitoredDeviceUpdate]: (state, payload) => {
     const things = _.clone(state.things)
-    const updateIndex = _.findIndex(things, {statusDevice: payload.statusDevice})
-    if (updateIndex >= 0) {
-      const oldThing = things[updateIndex]
+    const key = _.findKey(things, {statusDevice: payload.statusDevice})
+    if (key) {
+      const oldThing = things[key]
       if(oldThing.uuid !== payload.uuid) return state
-      things[updateIndex] = payload
+      things[key] = payload
     }
 
     return {...state, things}

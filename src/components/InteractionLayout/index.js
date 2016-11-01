@@ -9,7 +9,7 @@ import styles from './styles.css'
 const propTypes = {
   nodes: PropTypes.object,
   subscriptions: PropTypes.array,
-  things: PropTypes.array,
+  things: PropTypes.object,
   currentMessage: PropTypes.object
 }
 

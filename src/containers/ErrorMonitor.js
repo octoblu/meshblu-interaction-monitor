@@ -11,7 +11,7 @@ import _ from 'lodash'
 
 const propTypes = {
   dispatch: PropTypes.func,
-  things: PropTypes.array,
+  things: PropTypes.object,
   inquisitor: PropTypes.object,
   onThingSelection: PropTypes.func,
 }

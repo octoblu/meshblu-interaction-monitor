@@ -6,7 +6,7 @@ import InteractionNode from '../InteractionNode'
 const propTypes = {
   nodes: PropTypes.object,
   subscriptions: PropTypes.array,
-  things: PropTypes.array,
+  things: PropTypes.object,
   currentMessage: PropTypes.object,
 }
 
@@ -31,7 +31,7 @@ const getDimensions =  (nodes) => {
 
 const renderNodes = ({nodes, things, currentMessage}) => {
   return _.map(nodes, function(node, uuid){
-    const thing = _.find(things, {uuid})
+    const thing = things[uuid]
     let selected = false
 
     if(currentMessage) {

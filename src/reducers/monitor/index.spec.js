@@ -59,8 +59,8 @@ describe('Monitor Reducer', () => {
         error: null,
         fetching: false,
         inquisitor: null,
-        things: [
-          {
+        things: {
+          'device-1':{
             statusDevice: 'device-1',
             errors: [],
             device: {
@@ -68,7 +68,7 @@ describe('Monitor Reducer', () => {
               something: 'random',
             }
           },
-          {
+          'device-2': {
             statusDevice: 'device-2',
             errors: [],
             device: {
@@ -76,7 +76,7 @@ describe('Monitor Reducer', () => {
               something: 'random',
             }
           },
-        ],
+        },
         error: null,
         fetching: false,
         inquisitor: null
@@ -86,8 +86,8 @@ describe('Monitor Reducer', () => {
         error: null,
         fetching: false,
         inquisitor: null,
-        things: [
-          {
+        things: {
+          'device-1': {
             statusDevice: 'device-1',
             errors: ['some-new-error'],
             device: {
@@ -95,7 +95,7 @@ describe('Monitor Reducer', () => {
               something: 'else',
             }
           },
-          {
+          'device-2': {
             statusDevice: 'device-2',
             errors: [],
             device: {
@@ -103,7 +103,7 @@ describe('Monitor Reducer', () => {
               something: 'random',
             }
           },
-        ],
+        },
         error: null,
         fetching: false,
         inquisitor: null
