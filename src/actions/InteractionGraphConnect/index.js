@@ -13,8 +13,6 @@ export const clearInteractionGraph          = createAction('interaction/graph/cl
 
 const graph = new Springy.Graph()
 
-window.graph = graph
-
 export function addEdge({emitterUuid, subscriberUuid, type}) {
   return (dispatch) => {
     const node1 = graph.nodeSet[emitterUuid]

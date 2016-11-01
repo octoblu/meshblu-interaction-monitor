@@ -3,7 +3,7 @@ import { createReducer } from 'redux-act'
 import { getMonitoredThingsRequest, getMonitoredThingsSuccess, getMonitoredThingsFailure } from '../../actions/MonitoredThingsGet'
 import { getMonitoredSubscriptionsRequest, getMonitoredSubscriptionsSuccess, getMonitoredSubscriptionsFailure } from '../../actions/MonitoredSubscriptionsGet'
 import { getInquisitorRequest, getInquisitorSuccess, getInquisitorFailure } from '../../actions/InquisitorGet'
-import { monitoredDeviceUpdate } from '../../actions/InquisitorConnect'
+import { monitoredDeviceUpdate, newMessage, } from '../../actions/InquisitorConnect'
 
 import {selectMonitoredThingSuccess} from '../../actions/MonitoredThingSelect'
 
@@ -14,6 +14,20 @@ const initialState = {
   fetching: false,
 }
 
+
+const addMessageCountToThing = (state, {metadata}) => {
+  const hop = _.find(metadata.route, {to: "50612acd-fd0c-4607-afb3-038c8d3776d9"})
+
+  if(!hop) {
+    console.log("WTF!!", metadata)
+    return state
+  }
+
+  const {type, from} = hop
+  const direction = _.split(type, '.')[1]
+  console.log({from, direction})
+  return state
+}
 
 export default createReducer({
   [getMonitoredThingsRequest]: (state) => ({ ...state, fetching: true }),
@@ -39,5 +53,6 @@ export default createReducer({
     return {...state, things}
   },
   [selectMonitoredThingSuccess]: (state, payload) => ({ ...state, selectedThing: payload }),
+  [newMessage]: addMessageCountToThing
 
 }, initialState)
