@@ -7,12 +7,14 @@ const propTypes = {
   nodes: PropTypes.object,
   subscriptions: PropTypes.array,
   things: PropTypes.array,
+  currentMessage: PropTypes.object,
 }
 
 const defaultProps = {
   nodes: null,
   subscriptions: null,
   things: null,
+  currentMessage: null,
 }
 
 const getDimensions =  (nodes) => {
@@ -27,10 +29,16 @@ const getDimensions =  (nodes) => {
   return {minX: minX - 5, minY: minY - 5, width: width + 10, height: height + 10}
 }
 
-const renderNodes = ({nodes, things}) => {
+const renderNodes = ({nodes, things, currentMessage}) => {
   return _.map(nodes, function(node, uuid){
     const thing = _.find(things, {uuid})
-    return <InteractionNode key={uuid} x={node.x} y={node.y} thing={thing} />
+    let selected = false
+
+    if(currentMessage) {
+      console.log({currentMessage})
+      selected = _.some(currentMessage.metadata.route, ({from, to}) => uuid === from || uuid === to)
+    }
+    return <InteractionNode key={uuid} x={node.x} y={node.y} thing={thing} selected={selected} />
   })
 }
 
@@ -41,12 +49,11 @@ const renderEdges = ({subscriptions, nodes}) => {
     const emitter = nodes[emitterUuid]
     if(!subscriber || !emitter) return
     const lineKey = `${subscriberUuid}:${emitterUuid}:${type}`
-    const classes = ['route', type]
-    return <line className={classes.join(' ')} key={lineKey} x1={subscriber.x} y1={subscriber.y} x2={emitter.x} y2={emitter.y} strokeWidth=".05" stroke="black" />
+    return <line className={styles.edge} key={lineKey} x1={subscriber.x} y1={subscriber.y} x2={emitter.x} y2={emitter.y}/>
   })
 }
 
-const InteractionGraph = ({nodes, subscriptions, things}) => {
+const InteractionGraph = ({nodes, subscriptions, things, currentMessage}) => {
   const {minX, minY, width, height} = getDimensions(nodes)
   return (
     <svg viewBox={`${minX} ${minY} ${width} ${height}`}>
@@ -56,8 +63,8 @@ const InteractionGraph = ({nodes, subscriptions, things}) => {
           <path d="M0,0 L4,2 0,4" />
         </marker>
       </defs>
-      {renderEdges({subscriptions, nodes})}
-      {renderNodes({nodes, things})}
+      {renderEdges({subscriptions, nodes, currentMessage})}
+      {renderNodes({nodes, things, currentMessage})}
     </svg>
   )
 }

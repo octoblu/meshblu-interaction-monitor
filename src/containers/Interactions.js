@@ -15,6 +15,7 @@ const propTypes = {
   meshbluConfig: PropTypes.object,
   subscriptions: PropTypes.array,
   things: PropTypes.array,
+  currentMessage: PropTypes.object,
 }
 
 class Interactions extends React.Component {
@@ -36,13 +37,13 @@ class Interactions extends React.Component {
   }
 
   render() {
-    const {graph, subscriptions, things} = this.props
+    const {graph, subscriptions, things, currentMessage} = this.props
     if(_.isEmpty(graph)) return <h1> Waiting for graph </h1>
     const {nodes} = graph
     return (
       <div>
         <h1>Sup G Money</h1>
-        <InteractionGraph nodes={nodes} subscriptions={subscriptions} things={things}/>
+        <InteractionGraph nodes={nodes} subscriptions={subscriptions} things={things} currentMessage={currentMessage}/>
       </div>
     )
   }
@@ -57,6 +58,7 @@ const mapStateToProps = ({meshblu, interaction, inquisitor, monitor}) => {
     subscriptions: interaction.subscriptions,
     things: monitor.things,
     connectionStatus: inquisitor.connectionStatus,
+    currentMessage: inquisitor.currentMessage,
   }
 }
 

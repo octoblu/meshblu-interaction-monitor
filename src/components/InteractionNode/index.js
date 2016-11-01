@@ -11,6 +11,7 @@ const propTypes = {
   thing: PropTypes.object,
   x: PropTypes.number,
   y: PropTypes.number,
+  selected: PropTypes.bool,
 }
 
 const defaultProps = {
@@ -39,15 +40,22 @@ const NodeErrors = ({errors}) => {
   return <circle cx="6" cy="-6" r="1.5" fill="red"/>
 }
 
-const InteractionNode = ({thing, x, y}) => {
+const InteractionNode = ({thing, x, y, selected}) => {
   if (_.isEmpty(thing)) {
     return null
   }
   const {uuid, device, errors} = thing
   const name = device.name || device.uuid
 
+  let width = 10, height = 3
+
+  if(selected) {
+    width *= 1.25
+    height *= 1.25
+  }
+
   return (
-    <svg width="10" height="3" x={x-5} y={y-1.5} key={uuid} viewBox="-10 -10 20 20">
+    <svg className={styles.root} width={width} height={height} x={x-(width/2)} y={y-(height/2)} key={uuid} viewBox="-10 -10 20 20">
         <NodeLogo device={device}/>
         <NodeErrors errors={errors}/>
         <text x="0" y="8" fontSize="3" alignmentBaseline="middle" textAnchor="middle">{name}</text>

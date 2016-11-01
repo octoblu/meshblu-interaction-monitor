@@ -1,4 +1,4 @@
-.root {
-  background-color: #eee;
-  margin: 5px;
+.edge {
+  stroke-width: .05;
+  stroke: #ccc;
 }

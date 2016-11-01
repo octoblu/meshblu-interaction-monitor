@@ -7,6 +7,7 @@ export const connectInquisitorRequest = createAction('inquisitor/connect/request
 export const connectInquisitorSuccess = createAction('inquisitor/connect/success')
 export const connectInquisitorFailure = createAction('inquisitor/connect/failure')
 export const monitoredDeviceUpdate    = createAction('monitor/device/update')
+export const currentMessage = createAction('inquisitor/message/current')
 
 export default function connectInquisitor({uuid, meshbluConfig}) {
   const firehoseConfig = {...meshbluConfig, hostname: 'meshblu-firehose-socket-io.octoblu.com'}
@@ -14,12 +15,12 @@ export default function connectInquisitor({uuid, meshbluConfig}) {
   return dispatch => {
     dispatch(connectInquisitorRequest())
     inquisitor.on('status-update', (message) => {
-      console.log('status-update', message)
       dispatch(monitoredDeviceUpdate(message))
     })
 
     inquisitor.on('message', ({metadata, data}) => {
       _.each(metadata.route, ({from, to, type})=> dispatch(addEdge({subscriberUuid: to, emitterUuid: from, type})))
+      dispatch(currentMessage({metadata, data}))
     })
 
     return inquisitor.connect((error) => {

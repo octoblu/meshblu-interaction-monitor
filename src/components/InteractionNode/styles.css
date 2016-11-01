@@ -2,3 +2,7 @@
   background-color: #eee;
   margin: 5px;
 }
+
+.pulse {
+  transform: scale(1.15, 1.15);
+}
