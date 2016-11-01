@@ -7,7 +7,7 @@ import connectInteractionGraph from '../actions/InteractionGraphConnect'
 import getMonitoredSubscriptions from '../actions/MonitoredSubscriptionsGet'
 import getMonitoredThings from  '../actions/MonitoredThingsGet'
 import clearErrors from '../actions/ErrorsClear'
-import InteractionGraph from '../components/InteractionGraph'
+import InteractionLayout from '../components/InteractionLayout'
 import _ from 'lodash'
 
 const propTypes = {
@@ -41,10 +41,7 @@ class Interactions extends React.Component {
     if(_.isEmpty(graph)) return <h1> Waiting for graph </h1>
     const {nodes} = graph
     return (
-      <div>
-        <h1>Sup G Money</h1>
-        <InteractionGraph nodes={nodes} subscriptions={subscriptions} things={things} currentMessage={currentMessage}/>
-      </div>
+      <InteractionLayout nodes={nodes} subscriptions={subscriptions} things={things} currentMessage={currentMessage}/>
     )
   }
 }
