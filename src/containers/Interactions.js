@@ -7,7 +7,7 @@ import connectInteractionGraph from '../actions/InteractionGraphConnect'
 import getMonitoredSubscriptions from '../actions/MonitoredSubscriptionsGet'
 import getMonitoredThings from  '../actions/MonitoredThingsGet'
 import clearErrors from '../actions/ErrorsClear'
-import InteractionNode from '../components/InteractionNode'
+import InteractionGraph from '../components/InteractionGraph'
 import _ from 'lodash'
 
 const propTypes = {
@@ -17,7 +17,7 @@ const propTypes = {
   things: PropTypes.array,
 }
 
-class InteractionGraph extends React.Component {
+class Interactions extends React.Component {
   componentDidMount() {
     this.props.dispatch(getMeshbluConfig())
   }
@@ -42,35 +42,13 @@ class InteractionGraph extends React.Component {
     return (
       <div>
         <h1>Sup G Money</h1>
-        <svg viewBox="-10 -10 20 20">
-            {this.renderEdges({subscriptions, nodes})}
-            {this.renderNodes({nodes, things})}
-        </svg>
+        <InteractionGraph nodes={nodes} subscriptions={subscriptions} things={things}/>
       </div>
     )
   }
-
-  renderNodes ({nodes, things}) {
-    return _.map(nodes, function(node, uuid){
-      const thing = _.find(things, {uuid})
-      return <InteractionNode key={uuid} x={node.x} y={node.y} thing={thing} />
-    })
-  }
-
-  renderEdges ({subscriptions, nodes}) {
-    return _.map(subscriptions, ({subscriberUuid, emitterUuid, type}) => {
-      if (subscriberUuid == emitterUuid) return
-      const subscriber = nodes[subscriberUuid]
-      const emitter = nodes[emitterUuid]
-      if(!subscriber || !emitter) return
-      const lineKey = `${subscriberUuid}:${emitterUuid}:${type}`
-
-      return <line key={lineKey} x1={subscriber.x} y1={subscriber.y} x2={emitter.x} y2={emitter.y} strokeWidth=".05" stroke="black" />
-    })
-  }
 }
 
-InteractionGraph.propTypes = propTypes
+Interactions.propTypes = propTypes
 
 const mapStateToProps = ({meshblu, interaction, inquisitor, monitor}) => {
   return {
@@ -82,4 +60,4 @@ const mapStateToProps = ({meshblu, interaction, inquisitor, monitor}) => {
   }
 }
 
-export default connect(mapStateToProps)(InteractionGraph)
+export default connect(mapStateToProps)(Interactions)

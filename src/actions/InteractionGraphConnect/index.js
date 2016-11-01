@@ -38,7 +38,7 @@ export default function connectInteractionGraph({things, subscriptions, uuid, me
 
     const renderDrawNode = (node, vector) => dispatch(updateNodeInteractionGraph({node, vector}))
     graph.loadJSON({nodes, edges})
-    const layout = new Springy.Layout.ForceDirected(graph, 100.0, 1000.0, 0.5)
+    const layout = new Springy.Layout.ForceDirected(graph, 100.0, 1000.0, 0.7)
     const renderer = new Springy.Renderer(layout, renderClear, renderDrawEdge, renderDrawNode)
     renderer.start()
     _.each(subscriptions, (subscription) => dispatch(addEdge(subscription)))
