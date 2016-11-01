@@ -8,7 +8,6 @@ const initialState = {
   fetching: null,
   error: null,
   connectionStatus: 'initial',
-  currentMessage: null,
   messages: [],
 }
 
