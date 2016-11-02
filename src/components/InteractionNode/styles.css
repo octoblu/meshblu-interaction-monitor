@@ -3,12 +3,12 @@
   margin: 5px;
 }
 
-.root image {
-  transition: 1s all;
-  transform: scale(1);
+.root.selected image {
+  animation: pulse 0.5s;
 }
 
-.root.selected image {
-  transition: 1s all;
-  transform: scale(2);
+@keyframes pulse {
+  0%   { transform: scale(1); }
+  50% { transform: scale(2); }
+  100% { transform: scale(1); }
 }
