@@ -8,11 +8,11 @@ import styles from './styles.css'
 const InteractionMessageList = ({ things, onMessageSelection, messages, selectedMessage }) => {
   if (_.isEmpty(messages)) return null
   if (_.isEmpty(things)) return null
+
   const messageItems = _.map(messages, (message) => {
     let thing
     const hop = _.last(_.reject(message.metadata.route, ({from, to}) => from === to))
     if(hop) thing = things[hop.from]
-
     return (
       <InteractionMessageListItem
         onMessageSelection={onMessageSelection}

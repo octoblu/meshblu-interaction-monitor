@@ -34,7 +34,7 @@ const InteractionMessageListItem = ({message, thing, onMessageSelection}) => {
   if (_.isEmpty(message)) return null
   if (_.isEmpty(thing)) return null
   const {device} = thing
-  const selectMessage = _.partial(onMessageSelection, message)  
+  const selectMessage = _.partial(onMessageSelection, message)
   return (
     <div className={styles.root} onClick={selectMessage}>
       <ThingName thing={device} />

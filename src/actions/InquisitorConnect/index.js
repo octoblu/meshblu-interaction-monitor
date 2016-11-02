@@ -12,6 +12,11 @@ export const newMessage               = createAction('monitor/messages/new')
 export default function connectInquisitor({uuid, meshbluConfig}) {
   const firehoseConfig = {...meshbluConfig, hostname: 'meshblu-firehose-socket-io.octoblu.com'}
   const inquisitor = new Inquisitor({uuid, meshbluConfig, firehoseConfig})
+
+  const throttledNewMessage = _.throttle((message, dispatch) => {
+    dispatch(newMessage(message))
+  }, 200)
+
   return dispatch => {
     dispatch(connectInquisitorRequest())
 
@@ -21,7 +26,7 @@ export default function connectInquisitor({uuid, meshbluConfig}) {
 
     inquisitor.on('message', ({metadata, data}) => {
       _.each(metadata.route, ({from, to, type})=> dispatch(addEdge({subscriberUuid: to, emitterUuid: from, type})))
-      dispatch(newMessage({metadata, data}))
+      dispatch(newMessage({metadata, data}, dispatch))
     })
 
     return inquisitor.connect((error) => {

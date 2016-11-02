@@ -68,7 +68,7 @@ const renderEdges = ({subscriptions, nodes}) => {
 }
 
 const InteractionGraph = ({nodes, subscriptions, things, selectedMessage}) => {
-  const {minX, minY, width, height} = getDimensions(nodes)
+  const {minX, minY, width, height} = getDimensions(nodes)  
   return (
     <svg key="interactionGraph" className={styles.graph} viewBox={`${minX} ${minY} ${width} ${height}`}>
       <defs>
