@@ -2,3 +2,7 @@
   stroke-width: .05;
   stroke: #ccc;
 }
+
+.graph {
+  flex: 1;
+}

@@ -8,11 +8,11 @@ const initialState = {
 }
 
 const storeNewMessage = (state, payload) => {
+  payload.timestamp = new Date()
   const messages = _.clone(state.messages)
   messages.unshift(payload)
-  if(messages.length > 1000) messages.length = 1000
-
-  return { ...state, messages, selected: payload }
+  if(messages.length > 100) messages.length = 100
+  return { ...state, messages: messages, selected: payload }
 }
 
 export default createReducer({

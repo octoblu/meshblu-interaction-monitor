@@ -14,6 +14,7 @@ export default function connectInquisitor({uuid, meshbluConfig}) {
   const inquisitor = new Inquisitor({uuid, meshbluConfig, firehoseConfig})
   return dispatch => {
     dispatch(connectInquisitorRequest())
+
     inquisitor.on('status-update', (message) => {
       dispatch(monitoredDeviceUpdate(message))
     })

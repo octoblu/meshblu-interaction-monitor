@@ -1,6 +1,6 @@
 {
   "name": "meshblu-interaction-monitor",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "meshblu-interaction-monitor",
   "main": "index.js",
   "scripts": {
@@ -41,6 +41,7 @@
     "debug": "^2.2.0",
     "lodash": "^4.16.4",
     "meshblu-inquisitor": "^4.0.0",
+    "moment": "^2.15.2",
     "react": "^15.2.1",
     "react-cookie": "^0.4.8",
     "react-dom": "^15.2.1",

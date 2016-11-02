@@ -2,6 +2,7 @@ import _ from 'lodash'
 import React, { PropTypes } from 'react'
 
 import InteractionGraph from '../InteractionGraph'
+import InteractionMessageList from '../InteractionMessageList'
 import ThingList from '../ThingList'
 import ErrorViewer from '../ErrorViewer'
 import styles from './styles.css'
@@ -10,6 +11,7 @@ const propTypes = {
   nodes: PropTypes.object,
   subscriptions: PropTypes.array,
   things: PropTypes.object,
+  messages: PropTypes.array,
   selectedMessage: PropTypes.object
 }
 
@@ -17,14 +19,18 @@ const defaultProps = {
   nodes: null,
   subscriptions: null,
   things: null,
+  messages: null,
   selectedMessage: null,
 }
 
-const InteractionLayout = ({ nodes, subscriptions, things, selectedMessage }) => {
+const InteractionLayout = ({ nodes, subscriptions, things, messages, selectedMessage }) => {
   return (
     <div className={styles.root}>
       <h1>Sup G Money</h1>
-      <InteractionGraph nodes={nodes} subscriptions={subscriptions} things={things} selectedMessage={selectedMessage}/>
+      <div className={styles.main}>
+        <InteractionMessageList messages={messages} things={things} selectedMessage={selectedMessage} />
+        <InteractionGraph nodes={nodes} subscriptions={subscriptions} things={things} selectedMessage={selectedMessage}/>
+      </div>
     </div>
   )
 }

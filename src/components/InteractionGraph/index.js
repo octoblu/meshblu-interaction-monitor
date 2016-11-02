@@ -41,29 +41,44 @@ const renderNodes = ({nodes, things, selectedMessage}) => {
   })
 }
 
+const hashCode = function(str) {
+  let hash = 0, i, chr, len;
+  if (str.length === 0) return hash;
+  for (i = 0, len = str.length; i < len; i++) {
+    chr   = str.charCodeAt(i);
+    hash  = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+}
+
 const renderEdges = ({subscriptions, nodes}) => {
+  let usedKeys = {}
   return _.map(subscriptions, ({subscriberUuid, emitterUuid, type}) => {
+    const lineKey = `${subscriberUuid}:${emitterUuid}`
+    if (usedKeys[lineKey]) return
+    usedKeys[lineKey] = true
     if (subscriberUuid == emitterUuid) return
     const subscriber = nodes[subscriberUuid]
     const emitter = nodes[emitterUuid]
     if(!subscriber || !emitter) return
-    const lineKey = `${subscriberUuid}:${emitterUuid}:${type}`
-    return <line className={styles.edge} key={lineKey} x1={subscriber.x} y1={subscriber.y} x2={emitter.x} y2={emitter.y}/>
+    // const lineKey = `${subscriberUuid}:${emitterUuid}:${type}`
+    return (<line key={lineKey} className={styles.edge} x1={subscriber.x} y1={subscriber.y} x2={emitter.x} y2={emitter.y} />)
   })
 }
 
 const InteractionGraph = ({nodes, subscriptions, things, selectedMessage}) => {
   const {minX, minY, width, height} = getDimensions(nodes)
   return (
-    <svg viewBox={`${minX} ${minY} ${width} ${height}`}>
+    <svg key="interactionGraph" className={styles.graph} viewBox={`${minX} ${minY} ${width} ${height}`}>
       <defs>
         <marker id="arrow" markerWidth="4" markerHeight="4"
                 orient="auto" refY="2">
           <path d="M0,0 L4,2 0,4" />
         </marker>
       </defs>
-      {renderEdges({subscriptions, nodes, selectedMessage})}
-      {renderNodes({nodes, things, selectedMessage})}
+      <g>{renderEdges({subscriptions, nodes, selectedMessage})}</g>
+      <g>{renderNodes({nodes, things, selectedMessage})}</g>
     </svg>
   )
 }
