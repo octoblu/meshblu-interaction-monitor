@@ -51,7 +51,7 @@ const NodeCounts = ({counts}) => {
     sent += messageType.sent
   })
 
-  return <text x="8" y="-5" fontSize="3" alignmentBaseline="middle" textAnchor="left" fill="grey">{received}rx / {sent}tx</text>
+  return <text x="6" y="-5" fontSize="3" alignmentBaseline="middle" textAnchor="left" fill="grey">{received}rx / {sent}tx</text>
 }
 
 const InteractionNode = ({thing, x, y, selected}) => {
@@ -61,19 +61,20 @@ const InteractionNode = ({thing, x, y, selected}) => {
   const {uuid, device, errors} = thing
   const name = device.name || device.uuid
 
-  let width = 10, height = 3
+  const width = 10
+  const height = 3
+  const classes = [styles.root]
 
   if(selected) {
-    width *= 1.25
-    height *= 1.25
+    classes.push(styles.selected)
   }
 
   return (
-    <svg className={styles.root} width={width} height={height} x={x-(width/2)} y={y-(height/2)} key={uuid} viewBox="-10 -10 20 20">
-        <NodeCounts counts={thing.counts}/>
+    <svg className={classes.join(' ')} width={width} height={height} x={x-(width/2)} y={y-(height/2)} key={uuid} viewBox="-10 -10 20 20">
         <NodeLogo device={device}/>
         <NodeErrors errors={errors}/>
         <text x="0" y="8" fontSize="3" alignmentBaseline="middle" textAnchor="middle">{name}</text>
+        <NodeCounts counts={thing.counts}/>
     </svg>
   )
 }

@@ -3,6 +3,12 @@
   margin: 5px;
 }
 
-.pulse {
-  transform: scale(1.15, 1.15);
+.root image {
+  transition: 1s all;
+  transform: scale(1);
+}
+
+.root.selected image {
+  transition: 1s all;
+  transform: scale(2);
 }

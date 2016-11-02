@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { createReducer } from 'redux-act'
-import { connectInquisitorRequest, connectInquisitorSuccess, connectInquisitorFailure, newMessage, } from '../../actions/InquisitorConnect'
+import { connectInquisitorRequest, connectInquisitorSuccess, connectInquisitorFailure,} from '../../actions/InquisitorConnect'
 import { getInquisitorRequest, getInquisitorSuccess, getInquisitorFailure } from '../../actions/InquisitorGet'
 
 const initialState = {
@@ -8,15 +8,6 @@ const initialState = {
   fetching: null,
   error: null,
   connectionStatus: 'initial',
-  messages: [],
-}
-
-const storeNewMessage = (state, payload) => {
-  const messages = _.clone(state.messages)
-  messages.unshift(payload)
-  if(messages.length > 10) messages.length = 10
-
-  return { ...state, messages }
 }
 
 export default createReducer({
@@ -26,6 +17,4 @@ export default createReducer({
   [getInquisitorRequest]: (state) => ({ ...state, fetching: true }),
   [getInquisitorSuccess]: (state, payload) => ({ ...state, device: payload, fetching: false }),
   [getInquisitorFailure]: (state, payload) => ({ ...state, error: payload, fetching: false }),
-  [newMessage]: storeNewMessage,
-
 }, initialState)

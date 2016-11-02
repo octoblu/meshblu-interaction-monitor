@@ -7,14 +7,14 @@ const propTypes = {
   nodes: PropTypes.object,
   subscriptions: PropTypes.array,
   things: PropTypes.object,
-  currentMessage: PropTypes.object,
+  selectedMessage: PropTypes.object,
 }
 
 const defaultProps = {
   nodes: null,
   subscriptions: null,
   things: null,
-  currentMessage: null,
+  selectedMessage: null,
 }
 
 const getDimensions =  (nodes) => {
@@ -29,13 +29,13 @@ const getDimensions =  (nodes) => {
   return {minX: minX - 5, minY: minY - 5, width: width + 10, height: height + 10}
 }
 
-const renderNodes = ({nodes, things, currentMessage}) => {
+const renderNodes = ({nodes, things, selectedMessage}) => {
   return _.map(nodes, function(node, uuid){
     const thing = things[uuid]
     let selected = false
 
-    if(currentMessage) {
-      selected = _.some(currentMessage.metadata.route, ({from, to}) => uuid === from || uuid === to)
+    if(selectedMessage) {
+      selected = _.some(selectedMessage.metadata.route, ({from, to}) => uuid === from || uuid === to)
     }
     return <InteractionNode key={uuid} x={node.x} y={node.y} thing={thing} selected={selected} />
   })
@@ -52,7 +52,7 @@ const renderEdges = ({subscriptions, nodes}) => {
   })
 }
 
-const InteractionGraph = ({nodes, subscriptions, things, currentMessage}) => {
+const InteractionGraph = ({nodes, subscriptions, things, selectedMessage}) => {
   const {minX, minY, width, height} = getDimensions(nodes)
   return (
     <svg viewBox={`${minX} ${minY} ${width} ${height}`}>
@@ -62,8 +62,8 @@ const InteractionGraph = ({nodes, subscriptions, things, currentMessage}) => {
           <path d="M0,0 L4,2 0,4" />
         </marker>
       </defs>
-      {renderEdges({subscriptions, nodes, currentMessage})}
-      {renderNodes({nodes, things, currentMessage})}
+      {renderEdges({subscriptions, nodes, selectedMessage})}
+      {renderNodes({nodes, things, selectedMessage})}
     </svg>
   )
 }

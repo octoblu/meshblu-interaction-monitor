@@ -10,21 +10,21 @@ const propTypes = {
   nodes: PropTypes.object,
   subscriptions: PropTypes.array,
   things: PropTypes.object,
-  currentMessage: PropTypes.object
+  selectedMessage: PropTypes.object
 }
 
 const defaultProps = {
   nodes: null,
   subscriptions: null,
   things: null,
-  currentMessage: null,
+  selectedMessage: null,
 }
 
-const InteractionLayout = ({ nodes, subscriptions, things, currentMessage }) => {
+const InteractionLayout = ({ nodes, subscriptions, things, selectedMessage }) => {
   return (
     <div className={styles.root}>
       <h1>Sup G Money</h1>
-      <InteractionGraph nodes={nodes} subscriptions={subscriptions} things={things} currentMessage={currentMessage}/>
+      <InteractionGraph nodes={nodes} subscriptions={subscriptions} things={things} selectedMessage={selectedMessage}/>
     </div>
   )
 }

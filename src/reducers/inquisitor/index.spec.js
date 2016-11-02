@@ -8,7 +8,6 @@ describe('Inquisitor Reducer', () => {
     device: null,
     fetching: null,
     error: null,
-    messages: [],
     connectionStatus: 'initial',
   }
 
