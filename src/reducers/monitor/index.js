@@ -16,6 +16,7 @@ const initialState = {
 
 
 const addMessageCountToThing = (state, {metadata}) => {
+  const things = _.clone(state.things)
   const inquisitorUuid = _.last(metadata.route).to
   const hop = _.find(metadata.route, {to: "50612acd-fd0c-4607-afb3-038c8d3776d9"})
 
@@ -25,9 +26,20 @@ const addMessageCountToThing = (state, {metadata}) => {
   }
 
   const {type, from} = hop
-  const direction = _.split(type, '.')[1]
-  // console.log(state.things)
-  return state
+  const [eventType, direction] = _.split(type, '.')
+  const thing = _.defaults(things[from],
+    {
+      counts: {
+          message: {received: 0, sent: 0},
+          configure: {received: 0, sent: 0},
+          broadcast: {received: 0, sent: 0},
+      }
+    }
+  )
+
+  thing.counts[eventType][direction]++
+  things[from] = thing
+  return {...state, things}
 }
 
 export default createReducer({
