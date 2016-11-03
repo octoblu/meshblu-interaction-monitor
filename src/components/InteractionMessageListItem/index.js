@@ -19,13 +19,18 @@ const defaultProps = {
   onMessageSelection: _.noop,
 }
 
-const MessageThing = ({thing}) => {
+const MessageThing = ({thing, message}) => {
   if(!thing) return null
   const {device} = thing
   const {type, logo} = device
   return (
-    <div className={styles.logoWrapper}>
-      <DeviceImage type={type} logo={logo} className={styles.logo} />
+    <div className={styles.messageThing}>
+      <div className={styles.logoWrapper}>
+        <DeviceImage type={type} logo={logo} className={styles.logo} />
+      </div>
+      <div className={styles.messageWrapper}>
+        <pre>{JSON.stringify(message,null,2)}</pre>
+      </div>
     </div>
   )
 }
@@ -48,8 +53,8 @@ class InteractionMessageListItem extends React.Component {
         <ThingName thing={device} />
         <div className={styles.body}>
           <div className={styles.header}>
-            <MessageThing thing={thing}/>
-            <span>{moment(message.timestamp).format('lll')}</span>
+            <MessageThing thing={thing} message={message}/>
+            <span>{moment(message.timestamp).format('MMMM Do YYYY, h:mm:ssa')}</span>
           </div>
           <div className={styles.message}>
           </div>

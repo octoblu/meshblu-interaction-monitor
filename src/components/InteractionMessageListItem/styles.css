@@ -10,11 +10,28 @@
   min-height: 120px;
 }
 
+.messageThing {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  background: white;
+  padding: 1em 0;
+  cursor:pointer;
+  min-height: 120px;
+}
+
 .logoWrapper {
   display: flex;
   width: 48px;
   height: 48px;
   justify-content: center;
+  flex: 1;
+}
+
+.messageWrapper {
+  display: flex;
+  flex: 1;
 }
 
 .logo {
