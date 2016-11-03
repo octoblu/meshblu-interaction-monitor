@@ -26,7 +26,9 @@ const InteractionMessageList = ({ things, onMessageSelection, messages, selected
   return (
     <div className={styles.root}>
       <div>{messages.length}</div>
-      {messageItems}
+      <div className={styles.root}>
+        {messageItems}
+      </div>
     </div>
   )
 }

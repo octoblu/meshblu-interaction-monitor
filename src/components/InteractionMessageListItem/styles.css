@@ -5,33 +5,14 @@
   border-bottom: 1px solid rgba(0,0,0,0.1);
   width: 100%;
   background: white;
-  padding: 1em 0;
+  padding: 1em;
   cursor:pointer;
   min-height: 120px;
 }
 
-.messageThing {
+.header {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  background: white;
-  padding: 1em 0;
-  cursor:pointer;
-  min-height: 120px;
-}
-
-.logoWrapper {
-  display: flex;
-  width: 48px;
-  height: 48px;
-  justify-content: center;
-  flex: 1;
-}
-
-.messageWrapper {
-  display: flex;
-  flex: 1;
+  flex-direction: row;
 }
 
 .logo {
@@ -41,17 +22,10 @@
   height: 32px;
 }
 
-.body {
-  display: flex;
-  flex: 1;
-  padding: 0 1em;
-  flex-direction: row;
-}
-
 .name {
   align-self: flex;
-  margin-bottom: 0.4em;
-
+  padding-left: .5em;
+  padding-top: .25em;
   color: rgba(0, 0, 0, 0.7);
   text-align: left;
   text-decoration: none;
@@ -63,28 +37,9 @@
 
 .message {
   display:flex;
-  justify-content: center;
-}
-
-.errorbadge {
-  border-radius: 2px;
-  padding: 0.25em 0.5em;
-
-  color: #FFF;
-  background: #d9534f;
-  font-size: 1em;
-  text-transform: uppercase;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: left;
 }
 
 .selected {
   border: 1px solid black;
-}
-
-.header {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }

@@ -23,13 +23,20 @@ const MessageThing = ({thing, message}) => {
   if(!thing) return null
   const {device} = thing
   const {type, logo} = device
+  // {JSON.stringify(message,null,2)}
   return (
-    <div className={styles.messageThing}>
-      <div className={styles.logoWrapper}>
+    <div className={styles.root}>
+      <div className={styles.header}>
         <DeviceImage type={type} logo={logo} className={styles.logo} />
+        <div className={styles.name}>
+          <ThingName thing={device} />
+        </div>
       </div>
-      <div className={styles.messageWrapper}>
-        <pre>{JSON.stringify(message,null,2)}</pre>
+      <div className={styles.message}>
+        <pre>hello world</pre>
+      </div>
+      <div className={styles.time}>
+        {moment(message.timestamp).format('MMMM Do YYYY, h:mm:ssa')}
       </div>
     </div>
   )
@@ -47,20 +54,11 @@ class InteractionMessageListItem extends React.Component {
     if (_.isEmpty(thing)) return null
 
     const {device} = thing
-    const selectMessage = _.partial(onMessageSelection, message)
-    return (
-      <div className={styles.root} onClick={selectMessage}>
-        <ThingName thing={device} />
-        <div className={styles.body}>
-          <div className={styles.header}>
-            <MessageThing thing={thing} message={message}/>
-            <span>{moment(message.timestamp).format('MMMM Do YYYY, h:mm:ssa')}</span>
-          </div>
-          <div className={styles.message}>
-          </div>
-        </div>
-      </div>
-    )
+    const selectMessage = (message) => {
+      console.log('selected message', {message})
+    }
+    // _.partial(onMessageSelection, message)
+    return (<MessageThing onClick={selectMessage} thing={thing} message={message}/>)
   }
 }
 
