@@ -9,9 +9,8 @@ const initialState = {
 
 const storeNewMessage = (state, payload) => {
   payload.timestamp = new Date()
-  const messages = _.clone(state.messages)
+  const messages = state.messages.slice(0,99)
   messages.unshift(payload)
-  if(messages.length > 100) messages.length = 100
   return { ...state, messages: messages, selected: payload }
 }
 
