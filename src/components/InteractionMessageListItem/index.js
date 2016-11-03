@@ -30,24 +30,33 @@ const MessageThing = ({thing}) => {
   )
 }
 
-const InteractionMessageListItem = ({message, thing, onMessageSelection}) => {
-  if (_.isEmpty(message)) return null
-  if (_.isEmpty(thing)) return null
-  const {device} = thing
-  const selectMessage = _.partial(onMessageSelection, message)
-  return (
-    <div className={styles.root} onClick={selectMessage}>
-      <ThingName thing={device} />
-      <div className={styles.body}>
-        <div className={styles.header}>
-          <MessageThing thing={thing}/>
-          <span>{moment(message.timestamp).format('lll')}</span>
-        </div>
-        <div className={styles.message}>
+class InteractionMessageListItem extends React.Component {
+  shouldComponentUpdate() {
+    return false
+  }
+
+  render() {
+    const {message, thing, onMessageSelection} = this.props
+
+    if (_.isEmpty(message)) return null
+    if (_.isEmpty(thing)) return null
+
+    const {device} = thing
+    const selectMessage = _.partial(onMessageSelection, message)
+    return (
+      <div className={styles.root} onClick={selectMessage}>
+        <ThingName thing={device} />
+        <div className={styles.body}>
+          <div className={styles.header}>
+            <MessageThing thing={thing}/>
+            <span>{moment(message.timestamp).format('lll')}</span>
+          </div>
+          <div className={styles.message}>
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 InteractionMessageListItem.propTypes    = propTypes
