@@ -10,6 +10,8 @@ import clearErrors from '../actions/ErrorsClear'
 import InteractionLayout from '../components/InteractionLayout'
 import _ from 'lodash'
 
+import {selectMessage} from '../actions/InquisitorConnect'
+
 const propTypes = {
   graph: PropTypes.object,
   meshbluConfig: PropTypes.object,
@@ -37,13 +39,17 @@ class Interactions extends React.Component {
     if(_.isEmpty(graph)) this.props.dispatch(connectInteractionGraph({things: things, subscriptions, uuid, meshbluConfig}))
   }
 
+  onMessageSelection = (message) => {
+    this.props.dispatch(selectMessage(message))
+  }
+
   render() {
     const {graph, subscriptions, things, messages, selectedMessage} = this.props
     if(_.isEmpty(graph)) return <h1> Waiting for graph </h1>
     if(_.isEmpty(things)) return <h1> Waiting for things </h1>
     const {nodes} = graph
     return (
-      <InteractionLayout nodes={nodes} subscriptions={subscriptions} things={things} messages={messages} selectedMessage={selectedMessage}/>
+      <InteractionLayout nodes={nodes} subscriptions={subscriptions} things={things} messages={messages} onMessageSelection={this.onMessageSelection} selectedMessage={selectedMessage}/>
     )
   }
 }
@@ -58,7 +64,7 @@ const mapStateToProps = ({meshblu, interaction, inquisitor, monitor, messages}) 
     things: monitor.things,
     connectionStatus: inquisitor.connectionStatus,
     messages: messages.messages,
-    selectedMessage: messages.selected,
+    selectedMessage: messages.selected    
   }
 }
 

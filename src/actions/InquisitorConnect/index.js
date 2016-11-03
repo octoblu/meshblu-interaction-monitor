@@ -8,6 +8,7 @@ export const connectInquisitorSuccess = createAction('inquisitor/connect/success
 export const connectInquisitorFailure = createAction('inquisitor/connect/failure')
 export const monitoredDeviceUpdate    = createAction('monitor/device/update')
 export const newMessage               = createAction('monitor/messages/new')
+export const selectMessage            = createAction('monitor/messages/select')
 
 export default function connectInquisitor({uuid, meshbluConfig}) {
   const firehoseConfig = {...meshbluConfig, hostname: 'meshblu-firehose-socket-io.octoblu.com'}

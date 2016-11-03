@@ -17,6 +17,7 @@ const InteractionMessageList = ({ things, onMessageSelection, messages, selected
       <InteractionMessageListItem
         onMessageSelection={onMessageSelection}
         message={message}
+        selected={message.metadata.responseId === selectedMessage.metadata.responseId}
         thing={thing}
         key={message.metadata.responseId}
       />

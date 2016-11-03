@@ -19,13 +19,18 @@ const defaultProps = {
   onMessageSelection: _.noop,
 }
 
-const MessageThing = ({thing, message}) => {
+const MessageThing = ({thing, message, onMessageSelection, selected}) => {
   if(!thing) return null
   const {device} = thing
   const {type, logo} = device
   // {JSON.stringify(message,null,2)}
+  const classes = [styles.root]
+  if(selected) {
+    classes.push(styles.selected)
+  }
+  const handleClick = _.partial(onMessageSelection, message)
   return (
-    <div className={styles.root}>
+    <div onClick={handleClick} className={classes.join(' ')}>
       <div className={styles.header}>
         <DeviceImage type={type} logo={logo} className={styles.logo} />
         <div className={styles.name}>
@@ -33,7 +38,7 @@ const MessageThing = ({thing, message}) => {
         </div>
       </div>
       <div className={styles.message}>
-        <pre>hello world</pre>
+        <pre>{'' + selected}</pre>
       </div>
       <div className={styles.time}>
         {moment(message.timestamp).format('MMMM Do YYYY, h:mm:ssa')}
@@ -43,22 +48,21 @@ const MessageThing = ({thing, message}) => {
 }
 
 class InteractionMessageListItem extends React.Component {
-  shouldComponentUpdate() {
-    return false
+  shouldComponentUpdate(nextProps) {
+    return this.props.selected !== nextProps.selected
   }
 
   render() {
-    const {message, thing, onMessageSelection} = this.props
+    const {message, thing, onMessageSelection, selected} = this.props
 
     if (_.isEmpty(message)) return null
     if (_.isEmpty(thing)) return null
 
     const {device} = thing
-    const selectMessage = (message) => {
-      console.log('selected message', {message})
-    }
-    // _.partial(onMessageSelection, message)
-    return (<MessageThing onClick={selectMessage} thing={thing} message={message}/>)
+    // const selectMessage = (message) => {
+    //   console.log('selected message', {message})
+    // }
+    return (<MessageThing onMessageSelection={onMessageSelection} thing={thing} message={message} selected={selected}/>)
   }
 }
 

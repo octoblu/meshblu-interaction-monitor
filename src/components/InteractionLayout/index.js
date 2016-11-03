@@ -12,7 +12,8 @@ const propTypes = {
   subscriptions: PropTypes.array,
   things: PropTypes.object,
   messages: PropTypes.array,
-  selectedMessage: PropTypes.object
+  selectedMessage: PropTypes.object,
+  onMessageSelection: PropTypes.func,
 }
 
 const defaultProps = {
@@ -23,12 +24,12 @@ const defaultProps = {
   selectedMessage: null,
 }
 
-const InteractionLayout = ({ nodes, subscriptions, things, messages, selectedMessage }) => {
+const InteractionLayout = ({ nodes, subscriptions, things, messages, selectedMessage, onMessageSelection }) => {
   return (
     <div className={styles.root}>
       <h1>Sup G Money</h1>
       <div className={styles.main}>
-        <InteractionMessageList messages={messages} things={things} selectedMessage={selectedMessage} />
+        <InteractionMessageList messages={messages} things={things} onMessageSelection={onMessageSelection} selectedMessage={selectedMessage} />
         <InteractionGraph nodes={nodes} subscriptions={subscriptions} things={things} selectedMessage={selectedMessage}/>
       </div>
     </div>
