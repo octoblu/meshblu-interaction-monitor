@@ -7191,7 +7191,7 @@ zooid-alert@^1.0.2:
     lodash.isempty "^4.2.1"
     react "^15.0.1"
 
-zooid-button@^1.2.2:
+zooid-button:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/zooid-button/-/zooid-button-1.2.2.tgz#56828bcbc8e1889efd8b4631c293cc38e608a4ee"
   dependencies:

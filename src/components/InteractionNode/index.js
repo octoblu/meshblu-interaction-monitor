@@ -64,8 +64,8 @@ const InteractionNode = ({thing, x, y, selected, pauseMessageStream}) => {
     classes.push(styles.nopause)
   }
   if( selected && pauseMessageStream) {
-    width *=2
-    height *=2
+    width *=1.5
+    height *=1.5
   }
   return (
     <svg className={classes.join(' ')} width={width} height={height} x={x-(width/2)} y={y-(height/2)} key={uuid} viewBox="-10 -10 20 20">

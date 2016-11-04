@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { createReducer } from 'redux-act'
-import { newMessage, selectMessage} from '../../actions/InquisitorConnect'
+import { newMessage, selectMessage, unpauseMessageStream} from '../../actions/InquisitorConnect'
 
 const initialState = {
   messages: [],
@@ -22,5 +22,6 @@ export default createReducer({
   [newMessage]: storeNewMessage,
   [selectMessage]: (state, payload) => {
     return {...state, selected: payload, selectedByUser: true}
-  }
+  },
+  [unpauseMessageStream]: (state) => ({...state, selectedByUser: false}),
 }, initialState)

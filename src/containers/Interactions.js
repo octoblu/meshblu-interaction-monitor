@@ -10,7 +10,7 @@ import clearErrors from '../actions/ErrorsClear'
 import InteractionLayout from '../components/InteractionLayout'
 import _ from 'lodash'
 
-import {selectMessage} from '../actions/InquisitorConnect'
+import {selectMessage, unpauseMessageStream} from '../actions/InquisitorConnect'
 
 class Interactions extends React.Component {
   componentDidMount() {
@@ -30,8 +30,12 @@ class Interactions extends React.Component {
     if(_.isEmpty(graph)) this.props.dispatch(connectInteractionGraph({things: things, subscriptions, uuid, meshbluConfig}))
   }
 
-  onMessageSelection = (message) => {
+  handleMessageSelection = (message) => {
     this.props.dispatch(selectMessage(message))
+  }
+
+  handleUnpause = () => {
+    this.props.dispatch(unpauseMessageStream())
   }
 
   render() {
@@ -45,9 +49,10 @@ class Interactions extends React.Component {
         subscriptions={subscriptions}
         things={things}
         messages={messages}
-        onMessageSelection={this.onMessageSelection}
+        onMessageSelection={this.handleMessageSelection}
         pauseMessageStream={pauseMessageStream}
         selectedMessage={selectedMessage}
+        onUnpause={this.handleUnpause}
       />
     )
   }
