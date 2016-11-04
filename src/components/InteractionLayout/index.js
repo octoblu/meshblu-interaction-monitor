@@ -51,6 +51,7 @@ const InteractionLayout = ({
           nodes={nodes}
           subscriptions={subscriptions}
           things={things}
+          onMessageFilterSelection={onMessageFilterSelection}
           selectedMessage={selectedMessage}
           pauseMessageStream={pauseMessageStream}
         />

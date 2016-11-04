@@ -13,7 +13,7 @@ const storeNewMessage = (state, payload) => {
   }
 
   payload.timestamp = new Date()
-  const messages = state.messages.slice(0,200)
+  const messages = state.messages.slice(0,99)
   messages.unshift(payload)
   return { ...state, messages: messages, selected: payload}
 }
@@ -24,5 +24,8 @@ export default createReducer({
     return {...state, selected: payload, selectedByUser: true}
   },
   [unpauseMessageStream]: (state) => ({...state, selectedByUser: false}),
-  [filterMessageStream]: (state, payload) => ({...state, filter: payload})
+  [filterMessageStream]: (state, payload) => {
+    console.log('filterMessageStream', payload)
+    return ({...state, filter: payload})
+  }
 }, initialState)

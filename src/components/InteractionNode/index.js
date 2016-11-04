@@ -43,11 +43,12 @@ const NodeCounts = ({counts}) => {
   return <text x="6" y="-5" fontSize="3" alignmentBaseline="middle" textAnchor="left" fill="grey">{received}rx / {sent}tx</text>
 }
 
-const InteractionNode = ({thing, x, y, selected, pauseMessageStream}) => {
+const InteractionNode = ({thing, x, y, selected, pauseMessageStream, onMessageFilterSelection}) => {
   if (_.isEmpty(thing)) {
     return null
   }
-  const {uuid, device, errors} = thing
+  const {device, errors} = thing
+  const {uuid} = device
   const name = device.name || device.uuid
 
   let width = 10
@@ -63,9 +64,9 @@ const InteractionNode = ({thing, x, y, selected, pauseMessageStream}) => {
   } else {
     classes.push(styles.nopause)
   }
-  
+  const handleMessageSelection = _.partial(onMessageFilterSelection, uuid)
   return (
-    <svg className={classes.join(' ')} width={width} height={height} x={x-(width/2)} y={y-(height/2)} key={uuid} viewBox="-10 -10 20 20">
+    <svg onClick={handleMessageSelection} className={classes.join(' ')} width={width} height={height} x={x-(width/2)} y={y-(height/2)} key={uuid} viewBox="-10 -10 20 20">
         <NodeLogo device={device}/>
         <NodeErrors errors={errors}/>
         <text x="0" y="8" fontSize="3" alignmentBaseline="middle" textAnchor="middle">{name}</text>

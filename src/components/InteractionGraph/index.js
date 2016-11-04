@@ -15,7 +15,7 @@ const getDimensions =  (nodes) => {
   return {minX: minX - 5, minY: minY - 5, width: width + 10, height: height + 10}
 }
 
-const renderNodes = ({nodes, things, selectedMessage, pauseMessageStream}) => {
+const renderNodes = ({nodes, things, selectedMessage, pauseMessageStream, onMessageFilterSelection}) => {
   return _.map(nodes, function(node, uuid){
     const thing = things[uuid]
     let selected = false
@@ -23,7 +23,15 @@ const renderNodes = ({nodes, things, selectedMessage, pauseMessageStream}) => {
     if(selectedMessage) {
       selected = _.some(selectedMessage.metadata.route, ({from, to}) => uuid === from || uuid === to)
     }
-    return <InteractionNode key={uuid} x={node.x} y={node.y} thing={thing} selected={selected} pauseMessageStream={pauseMessageStream} />
+    return <InteractionNode
+      key={uuid}
+      x={node.x}
+      y={node.y}
+      thing={thing}
+      selected={selected}
+      pauseMessageStream={pauseMessageStream}
+      onMessageFilterSelection={onMessageFilterSelection}
+    />
   })
 }
 
@@ -38,7 +46,7 @@ const renderEdges = ({subscriptions, nodes}) => {
   })
 }
 
-const InteractionGraph = ({nodes, subscriptions, things, selectedMessage, pauseMessageStream}) => {
+const InteractionGraph = ({nodes, subscriptions, things, selectedMessage, onMessageFilterSelection, pauseMessageStream}) => {
   const {minX, minY, width, height} = getDimensions(nodes)
   return (
     <svg key="interactionGraph" className={styles.graph} viewBox={`${minX} ${minY} ${width} ${height}`}>
@@ -49,7 +57,7 @@ const InteractionGraph = ({nodes, subscriptions, things, selectedMessage, pauseM
         </marker>
       </defs>
       <g>{renderEdges({subscriptions, nodes, selectedMessage})}</g>
-      <g>{renderNodes({nodes, things, selectedMessage, pauseMessageStream})}</g>
+      <g>{renderNodes({nodes, things, selectedMessage, pauseMessageStream, onMessageFilterSelection})}</g>
     </svg>
   )
 }
