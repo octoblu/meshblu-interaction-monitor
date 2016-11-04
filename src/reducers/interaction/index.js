@@ -2,7 +2,7 @@ import _ from 'lodash'
 import { createReducer } from 'redux-act'
 import { connectInteractionGraphSuccess, updateNodeInteractionGraph, addEdgeInteractionGraphSuccess, clearInteractionGraph } from '../../actions/InteractionGraphConnect'
 import {getMonitoredSubscriptionsSuccess} from '../../actions/MonitoredSubscriptionsGet'
-
+import {selectMessage} from '../../actions/InquisitorConnect'
 const initialState = {
   graph: null,
   fetching: null,
@@ -12,8 +12,9 @@ const initialState = {
 
 
 const reduceUpdateNode = (state, {node, vector}) => {
+  const {x,y} = vector
   const graph = _.clone(state.graph || {})
-  _.set(graph, `nodes.${node.data.label}`, vector)
+  _.set(graph, `nodes.${node.data.label}`, {x,y})
   return {...state, graph}
 }
 
@@ -33,4 +34,7 @@ export default createReducer({
   [updateNodeInteractionGraph]: reduceUpdateNode,
   [addEdgeInteractionGraphSuccess]: reduceUpdateEdge,
   [getMonitoredSubscriptionsSuccess]: (state, payload) => ({ ...state, subscriptions: payload }),
+  [selectMessage]: (state) => {
+    return {...state, selectedByUser: true}
+  }
 }, initialState)

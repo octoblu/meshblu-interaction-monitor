@@ -1,14 +1,27 @@
 .root {
-  background-color: #eee;
-  margin: 5px;
 }
 
-.root.selected image {
+.selected.nopause image {
   animation: pulse 0.5s;
+}
+
+
+.selected {
+  border: 1px solid black;
+
+}
+
+.selected.pause image {
 }
 
 @keyframes pulse {
   0%   { transform: scale(1); }
   50% { transform: scale(2); }
   100% { transform: scale(1); }
+}
+
+
+@keyframes pausedPulse {
+  0%   { transform: scale(1); }
+  100% { transform: scale(2); }
 }

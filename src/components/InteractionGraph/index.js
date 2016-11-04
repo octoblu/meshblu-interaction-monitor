@@ -3,20 +3,6 @@ import React, { PropTypes } from 'react'
 import styles from './styles.css'
 import InteractionNode from '../InteractionNode'
 
-const propTypes = {
-  nodes: PropTypes.object,
-  subscriptions: PropTypes.array,
-  things: PropTypes.object,
-  selectedMessage: PropTypes.object,
-}
-
-const defaultProps = {
-  nodes: null,
-  subscriptions: null,
-  things: null,
-  selectedMessage: null,
-}
-
 const getDimensions =  (nodes) => {
   nodes = _.values(nodes)
   if( _.isEmpty(nodes)) return {minX: -10, minY: -10, width: 20, height: 20}
@@ -29,15 +15,15 @@ const getDimensions =  (nodes) => {
   return {minX: minX - 5, minY: minY - 5, width: width + 10, height: height + 10}
 }
 
-const renderNodes = ({nodes, things, selectedMessage}) => {
+const renderNodes = ({nodes, things, selectedMessage, pauseMessageStream}) => {
   return _.map(nodes, function(node, uuid){
     const thing = things[uuid]
     let selected = false
 
     if(selectedMessage) {
       selected = _.some(selectedMessage.metadata.route, ({from, to}) => uuid === from || uuid === to)
-    }
-    return <InteractionNode key={uuid} x={node.x} y={node.y} thing={thing} selected={selected} />
+    }    
+    return <InteractionNode key={uuid} x={node.x} y={node.y} thing={thing} selected={selected} pauseMessageStream={pauseMessageStream} />
   })
 }
 
@@ -67,8 +53,8 @@ const renderEdges = ({subscriptions, nodes}) => {
   })
 }
 
-const InteractionGraph = ({nodes, subscriptions, things, selectedMessage}) => {
-  const {minX, minY, width, height} = getDimensions(nodes)  
+const InteractionGraph = ({nodes, subscriptions, things, selectedMessage, pauseMessageStream}) => {
+  const {minX, minY, width, height} = getDimensions(nodes)
   return (
     <svg key="interactionGraph" className={styles.graph} viewBox={`${minX} ${minY} ${width} ${height}`}>
       <defs>
@@ -78,12 +64,9 @@ const InteractionGraph = ({nodes, subscriptions, things, selectedMessage}) => {
         </marker>
       </defs>
       <g>{renderEdges({subscriptions, nodes, selectedMessage})}</g>
-      <g>{renderNodes({nodes, things, selectedMessage})}</g>
+      <g>{renderNodes({nodes, things, selectedMessage, pauseMessageStream})}</g>
     </svg>
   )
 }
-
-InteractionGraph.propTypes    = propTypes
-InteractionGraph.defaultProps = defaultProps
 
 export default InteractionGraph

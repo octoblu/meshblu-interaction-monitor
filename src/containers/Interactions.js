@@ -12,15 +12,6 @@ import _ from 'lodash'
 
 import {selectMessage} from '../actions/InquisitorConnect'
 
-const propTypes = {
-  graph: PropTypes.object,
-  meshbluConfig: PropTypes.object,
-  subscriptions: PropTypes.array,
-  things: PropTypes.object,
-  messages: PropTypes.array,
-  selectedMessage: PropTypes.object,
-}
-
 class Interactions extends React.Component {
   componentDidMount() {
     this.props.dispatch(getMeshbluConfig())
@@ -44,17 +35,23 @@ class Interactions extends React.Component {
   }
 
   render() {
-    const {graph, subscriptions, things, messages, selectedMessage} = this.props
+    const {graph, subscriptions, things, messages, selectedMessage, pauseMessageStream} = this.props
     if(_.isEmpty(graph)) return <h1> Waiting for graph </h1>
     if(_.isEmpty(things)) return <h1> Waiting for things </h1>
     const {nodes} = graph
     return (
-      <InteractionLayout nodes={nodes} subscriptions={subscriptions} things={things} messages={messages} onMessageSelection={this.onMessageSelection} selectedMessage={selectedMessage}/>
+      <InteractionLayout
+        nodes={nodes}
+        subscriptions={subscriptions}
+        things={things}
+        messages={messages}
+        onMessageSelection={this.onMessageSelection}
+        pauseMessageStream={pauseMessageStream}
+        selectedMessage={selectedMessage}
+      />
     )
   }
 }
-
-Interactions.propTypes = propTypes
 
 const mapStateToProps = ({meshblu, interaction, inquisitor, monitor, messages}) => {
   return {
@@ -64,7 +61,8 @@ const mapStateToProps = ({meshblu, interaction, inquisitor, monitor, messages}) 
     things: monitor.things,
     connectionStatus: inquisitor.connectionStatus,
     messages: messages.messages,
-    selectedMessage: messages.selected    
+    selectedMessage: messages.selected,
+    pauseMessageStream: messages.selectedByUser,
   }
 }
 

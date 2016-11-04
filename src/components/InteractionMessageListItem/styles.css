@@ -38,6 +38,7 @@
 .message {
   display:flex;
   justify-content: left;
+  height: 100%;
 }
 
 .selected {

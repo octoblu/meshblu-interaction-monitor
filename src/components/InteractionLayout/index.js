@@ -7,36 +7,33 @@ import ThingList from '../ThingList'
 import ErrorViewer from '../ErrorViewer'
 import styles from './styles.css'
 
-const propTypes = {
-  nodes: PropTypes.object,
-  subscriptions: PropTypes.array,
-  things: PropTypes.object,
-  messages: PropTypes.array,
-  selectedMessage: PropTypes.object,
-  onMessageSelection: PropTypes.func,
+const InteractionSelectedMessage = ({message}) => {
+  if(_.isEmpty(message)) return null
+  return <pre className={styles.selectedMessage}>{JSON.stringify(message, null, 2)}</pre>
 }
 
-const defaultProps = {
-  nodes: null,
-  subscriptions: null,
-  things: null,
-  messages: null,
-  selectedMessage: null,
-}
-
-const InteractionLayout = ({ nodes, subscriptions, things, messages, selectedMessage, onMessageSelection }) => {
+const InteractionLayout = ({ nodes, subscriptions, things, messages, selectedMessage, onMessageSelection, pauseMessageStream, }) => {
   return (
     <div className={styles.root}>
       <h1>Sup G Money</h1>
       <div className={styles.main}>
-        <InteractionMessageList messages={messages} things={things} onMessageSelection={onMessageSelection} selectedMessage={selectedMessage} />
-        <InteractionGraph nodes={nodes} subscriptions={subscriptions} things={things} selectedMessage={selectedMessage}/>
+        <InteractionMessageList
+          messages={messages}
+          things={things}
+          onMessageSelection={onMessageSelection}
+          selectedMessage={selectedMessage}
+        />
+      <InteractionSelectedMessage message={selectedMessage} />
+        <InteractionGraph
+          nodes={nodes}
+          subscriptions={subscriptions}
+          things={things}
+          selectedMessage={selectedMessage}
+          pauseMessageStream={pauseMessageStream}
+        />
       </div>
     </div>
   )
 }
-
-InteractionLayout.propTypes    = propTypes
-InteractionLayout.defaultProps = defaultProps
 
 export default InteractionLayout

@@ -9,3 +9,8 @@
   flex-direction:row;
   flex:1;
 }
+
+.selectedMessage {
+  width: 500px;
+  overflow: scroll;
+}

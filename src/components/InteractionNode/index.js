@@ -7,17 +7,6 @@ import ThingName from '../ThingName'
 
 import styles from './styles.css'
 
-const propTypes = {
-  thing: PropTypes.object,
-  x: PropTypes.number,
-  y: PropTypes.number,
-  selected: PropTypes.bool,
-}
-
-const defaultProps = {
-  error: null
-}
-
 const getDeviceIconUrl = ({logo, type}) => {
   if(!_.isEmpty(logo)) return logo
   if (_.isEmpty(type)) return type
@@ -54,21 +43,30 @@ const NodeCounts = ({counts}) => {
   return <text x="6" y="-5" fontSize="3" alignmentBaseline="middle" textAnchor="left" fill="grey">{received}rx / {sent}tx</text>
 }
 
-const InteractionNode = ({thing, x, y, selected}) => {
+const InteractionNode = ({thing, x, y, selected, pauseMessageStream}) => {
   if (_.isEmpty(thing)) {
     return null
   }
   const {uuid, device, errors} = thing
   const name = device.name || device.uuid
 
-  const width = 10
-  const height = 3
+  let width = 10
+  let height = 3
   const classes = [styles.root]
 
   if(selected) {
     classes.push(styles.selected)
   }
 
+  if(pauseMessageStream) {
+    classes.push(styles.pause)
+  } else {
+    classes.push(styles.nopause)
+  }
+  if( selected && pauseMessageStream) {
+    width *=2
+    height *=2
+  }
   return (
     <svg className={classes.join(' ')} width={width} height={height} x={x-(width/2)} y={y-(height/2)} key={uuid} viewBox="-10 -10 20 20">
         <NodeLogo device={device}/>
@@ -78,8 +76,5 @@ const InteractionNode = ({thing, x, y, selected}) => {
     </svg>
   )
 }
-
-InteractionNode.propTypes    = propTypes
-InteractionNode.defaultProps = defaultProps
 
 export default InteractionNode

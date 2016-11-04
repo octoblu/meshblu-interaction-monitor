@@ -23,11 +23,11 @@ const MessageThing = ({thing, message, onMessageSelection, selected}) => {
   if(!thing) return null
   const {device} = thing
   const {type, logo} = device
-  // {JSON.stringify(message,null,2)}
-  const classes = [styles.root]
+  const classes = [styles.root]  
   if(selected) {
     classes.push(styles.selected)
   }
+
   const handleClick = _.partial(onMessageSelection, message)
   return (
     <div onClick={handleClick} className={classes.join(' ')}>
@@ -36,9 +36,6 @@ const MessageThing = ({thing, message, onMessageSelection, selected}) => {
         <div className={styles.name}>
           <ThingName thing={device} />
         </div>
-      </div>
-      <div className={styles.message}>
-        <pre>{'' + selected}</pre>
       </div>
       <div className={styles.time}>
         {moment(message.timestamp).format('MMMM Do YYYY, h:mm:ssa')}

@@ -8,16 +8,14 @@ const initialState = {
 }
 
 const storeNewMessage = (state, payload) => {
+  if(state.selectedByUser) {
+    return state
+  }
+
   payload.timestamp = new Date()
   const messages = state.messages.slice(0,99)
   messages.unshift(payload)
-  const newState = { ...state, messages: messages}
-
-  if(!state.selectedByUser) {
-    newState.selected = payload
-  }
-
-  return newState
+  return { ...state, messages: messages, selected: payload}
 }
 
 export default createReducer({
