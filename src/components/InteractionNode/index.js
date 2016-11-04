@@ -43,12 +43,18 @@ const NodeCounts = ({counts}) => {
   return <text x="6" y="-5" fontSize="3" alignmentBaseline="middle" textAnchor="left" fill="grey">{received}rx / {sent}tx</text>
 }
 
-const InteractionNode = ({thing, x, y, selected, pauseMessageStream, onMessageFilterSelection}) => {
+const InteractionNode = ({uuid, thing, x, y, selected, pauseMessageStream, onMessageFilterSelection}) => {
   if (_.isEmpty(thing)) {
-    return null
+    thing = {
+      device: {
+        uuid,
+        logo: 'https://vignette4.wikia.nocookie.net/destinypedia/images/b/b9/Unknown_License.png',
+      },
+      errors: [],
+      statusDevice: uuid
+    }
   }
   const {device, errors} = thing
-  const {uuid} = device
   const name = device.name || device.uuid
 
   let width = 10

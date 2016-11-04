@@ -16,10 +16,6 @@ export default function connectInquisitor({uuid, meshbluConfig}) {
   const firehoseConfig = {...meshbluConfig, hostname: 'meshblu-firehose-socket-io.octoblu.com'}
   const inquisitor = new Inquisitor({uuid, meshbluConfig, firehoseConfig})
 
-  const throttledNewMessage = _.throttle((message, dispatch) => {
-    dispatch(newMessage(message))
-  }, 200)
-
   return dispatch => {
     dispatch(connectInquisitorRequest())
 

@@ -24,8 +24,5 @@ export default createReducer({
     return {...state, selected: payload, selectedByUser: true}
   },
   [unpauseMessageStream]: (state) => ({...state, selectedByUser: false}),
-  [filterMessageStream]: (state, payload) => {
-    console.log('filterMessageStream', payload)
-    return ({...state, filter: payload})
-  }
+  [filterMessageStream]: (state, payload) => ({...state, filter: payload}),
 }, initialState)

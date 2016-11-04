@@ -12,13 +12,27 @@ export const updateEdgeInteractionGraph     = createAction('interaction/graph/up
 export const clearInteractionGraph          = createAction('interaction/graph/clear')
 
 const graph = new Springy.Graph()
+let connected = false
 
 export function addEdge({emitterUuid, subscriberUuid, type}) {
   return (dispatch) => {
-    const node1 = graph.nodeSet[emitterUuid]
-    const node2 = graph.nodeSet[subscriberUuid]
-    if(!node1 || !node2) return
-    if(node1 == node2) return
+    if(emitterUuid === subscriberUuid) return
+
+    let node1 = graph.nodeSet[emitterUuid]
+
+    if(!node1) {
+      if(!connected || emitterUuid === '50612acd-fd0c-4607-afb3-038c8d3776d9') return
+      node1 = new Springy.Node(emitterUuid, {label: emitterUuid})
+      graph.addNode(node1)
+    }
+
+    let node2 = graph.nodeSet[subscriberUuid]
+
+    if(!node2) {
+      if(!connected || subscriberUuid === '50612acd-fd0c-4607-afb3-038c8d3776d9') return
+      node2 = new Springy.Node(subscriberUuid, {label: subscriberUuid})
+      graph.addNode(node2)
+    }
 
     graph.newEdge(node1, node2, {type})
     return dispatch(addEdgeInteractionGraphSuccess({emitterUuid, subscriberUuid, type}))
@@ -40,6 +54,7 @@ export default function connectInteractionGraph({things, subscriptions, uuid, me
     const renderer = new Springy.Renderer(layout, renderClear, renderDrawEdge, renderDrawNode)
     renderer.start()
     _.each(subscriptions, (subscription) => dispatch(addEdge(subscription)))
+    connected = true
     return dispatch(connectInteractionGraphSuccess())
   }
 }

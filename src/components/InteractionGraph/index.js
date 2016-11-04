@@ -27,6 +27,7 @@ const renderNodes = ({nodes, things, selectedMessage, pauseMessageStream, onMess
       key={uuid}
       x={node.x}
       y={node.y}
+      uuid={uuid}
       thing={thing}
       selected={selected}
       pauseMessageStream={pauseMessageStream}
