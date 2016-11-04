@@ -19,7 +19,18 @@ const PauseButton = ({paused, onUnpause}) => {
   return <Button onClick={onUnpause}>Resume</Button>
 }
 
-const InteractionLayout = ({ nodes, subscriptions, things, messages, selectedMessage, onMessageSelection, pauseMessageStream, onUnpause}) => {
+const InteractionLayout = ({
+  nodes,
+  subscriptions,
+  things,
+  messages,
+  messageFilter,
+  selectedMessage,
+  onMessageSelection,
+  onMessageFilterSelection,
+  pauseMessageStream,
+  onUnpause
+}) => {
   return (
     <div className={styles.root}>
       <div className={styles.heading}>
@@ -29,8 +40,10 @@ const InteractionLayout = ({ nodes, subscriptions, things, messages, selectedMes
       <div className={styles.main}>
         <InteractionMessageList
           messages={messages}
+          messageFilter={messageFilter}
           things={things}
           onMessageSelection={onMessageSelection}
+          onMessageFilterSelection={onMessageFilterSelection}
           selectedMessage={selectedMessage}
         />
       <InteractionSelectedMessage message={selectedMessage} />

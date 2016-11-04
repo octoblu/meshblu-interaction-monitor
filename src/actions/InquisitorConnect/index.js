@@ -10,6 +10,7 @@ export const monitoredDeviceUpdate    = createAction('monitor/device/update')
 export const newMessage               = createAction('monitor/messages/new')
 export const selectMessage            = createAction('monitor/messages/select')
 export const unpauseMessageStream     = createAction('monitor/messages/unpause')
+export const filterMessageStream      = createAction('monitor/messages/filter')
 
 export default function connectInquisitor({uuid, meshbluConfig}) {
   const firehoseConfig = {...meshbluConfig, hostname: 'meshblu-firehose-socket-io.octoblu.com'}

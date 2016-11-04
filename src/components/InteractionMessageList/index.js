@@ -2,14 +2,20 @@ import _ from 'lodash'
 import React, { PropTypes } from 'react'
 
 import InteractionMessageListItem from '../InteractionMessageListItem'
+import InteractionMessageListFilter from '../InteractionMessageListFilter'
 
 import styles from './styles.css'
 
-const InteractionMessageList = ({ things, onMessageSelection, messages, selectedMessage }) => {
+const InteractionMessageList = ({ things, onMessageSelection, onMessageFilterSelection, messages, selectedMessage, messageFilter }) => {
   if (_.isEmpty(messages)) return null
   if (_.isEmpty(things)) return null
 
   const messageItems = _.map(messages, (message) => {
+    if(messageFilter) {
+       if(!_.some(message.metadata.route, ({from, to}) => from === messageFilter || to === messageFilter)) {
+         return null
+       }
+    }
     let thing
     const hop = _.last(_.reject(message.metadata.route, ({from, to}) => from === to))
     if(hop) thing = things[hop.from]
@@ -26,6 +32,7 @@ const InteractionMessageList = ({ things, onMessageSelection, messages, selected
 
   return (
     <div className={styles.root}>
+      <InteractionMessageListFilter things={things} onMessageFilterSelection={onMessageFilterSelection} messageFilter={messageFilter}/>
       <div>{messages.length}</div>
       <div className={styles.root}>
         {messageItems}

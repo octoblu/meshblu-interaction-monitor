@@ -1,0 +1,8 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: no-wrap;
+  width: 350px;
+  overflow:scroll;
+}
