@@ -63,10 +63,7 @@ const InteractionNode = ({thing, x, y, selected, pauseMessageStream}) => {
   } else {
     classes.push(styles.nopause)
   }
-  if( selected && pauseMessageStream) {
-    width *=1.5
-    height *=1.5
-  }
+  
   return (
     <svg className={classes.join(' ')} width={width} height={height} x={x-(width/2)} y={y-(height/2)} key={uuid} viewBox="-10 -10 20 20">
         <NodeLogo device={device}/>

@@ -30,7 +30,6 @@ const reduceUpdateEdge = (state, {emitterUuid, subscriberUuid, type}) => {
 
 export default createReducer({
   [connectInteractionGraphSuccess]: (state, payload) => ({ ...state, fetching: false, graph: {nodes: {}, edges: []} }),
-  [clearInteractionGraph]: (state, payload) => ({ ...state, fetching: false, graph: {nodes: {}, edges: []} }),
   [updateNodeInteractionGraph]: reduceUpdateNode,
   [addEdgeInteractionGraphSuccess]: reduceUpdateEdge,
   [getMonitoredSubscriptionsSuccess]: (state, payload) => ({ ...state, subscriptions: payload }),

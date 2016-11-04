@@ -22,33 +22,18 @@ const renderNodes = ({nodes, things, selectedMessage, pauseMessageStream}) => {
 
     if(selectedMessage) {
       selected = _.some(selectedMessage.metadata.route, ({from, to}) => uuid === from || uuid === to)
-    }    
+    }
     return <InteractionNode key={uuid} x={node.x} y={node.y} thing={thing} selected={selected} pauseMessageStream={pauseMessageStream} />
   })
 }
 
-const hashCode = function(str) {
-  let hash = 0, i, chr, len;
-  if (str.length === 0) return hash;
-  for (i = 0, len = str.length; i < len; i++) {
-    chr   = str.charCodeAt(i);
-    hash  = ((hash << 5) - hash) + chr;
-    hash |= 0; // Convert to 32bit integer
-  }
-  return hash;
-}
-
 const renderEdges = ({subscriptions, nodes}) => {
-  let usedKeys = {}
   return _.map(subscriptions, ({subscriberUuid, emitterUuid, type}) => {
-    const lineKey = `${subscriberUuid}:${emitterUuid}`
-    if (usedKeys[lineKey]) return
-    usedKeys[lineKey] = true
     if (subscriberUuid == emitterUuid) return
     const subscriber = nodes[subscriberUuid]
     const emitter = nodes[emitterUuid]
     if(!subscriber || !emitter) return
-    // const lineKey = `${subscriberUuid}:${emitterUuid}:${type}`
+    const lineKey = `${subscriberUuid}:${emitterUuid}:${type}`
     return (<line key={lineKey} className={styles.edge} x1={subscriber.x} y1={subscriber.y} x2={emitter.x} y2={emitter.y} />)
   })
 }

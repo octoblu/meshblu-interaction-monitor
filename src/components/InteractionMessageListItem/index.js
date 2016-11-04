@@ -23,7 +23,7 @@ const MessageThing = ({thing, message, onMessageSelection, selected}) => {
   if(!thing) return null
   const {device} = thing
   const {type, logo} = device
-  const classes = [styles.root]  
+  const classes = [styles.root]
   if(selected) {
     classes.push(styles.selected)
   }
