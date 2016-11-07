@@ -25,6 +25,11 @@ export default function connectInquisitor({uuid, meshbluConfig}) {
 
     inquisitor.on('message', ({metadata, data}) => {
       _.each(metadata.route, ({from, to, type})=> dispatch(addEdge({subscriberUuid: to, emitterUuid: from, type})))
+      // const [eventType] = _.first(metadata.route).type.split('.')
+      // if(eventType === 'configure') {
+      //   const newEdge = {subscriberUuid: data.uuid, emitterUuid: data.meshblu.updatedBy, type: _.first(metadata.route).type }
+      //   dispatch(addEdge(newEdge))
+      // }
       dispatch(newMessage({metadata, data}, dispatch))
     })
 

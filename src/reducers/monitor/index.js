@@ -30,6 +30,9 @@ const addMessageCountToThing = (state, {metadata}) => {
   const [eventType, direction] = _.split(type, '.')
   const thing = _.defaults(things[from],
     {
+      device: {
+        uuid: from,
+      },
       counts: {
           message: {received: 0, sent: 0},
           configure: {received: 0, sent: 0},
