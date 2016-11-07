@@ -10,10 +10,11 @@ export default function getMonitoredSubscriptions({uuid, meshbluConfig}) {
   const inquisitor = new Inquisitor({uuid, meshbluConfig})
   return dispatch => {
     dispatch(getMonitoredSubscriptionsRequest())
-    return inquisitor.getMonitoredDeviceSubscriptions((error, subscriptions) => {
-      if(error) return dispatch(getMonitoredSubscriptionsFailure(error))
-      _.each(subscriptions, (subscription) => dispatch(addEdge(subscription)))
-      return dispatch(getMonitoredSubscriptionsSuccess(subscriptions))
-    })
+    dispatch(getMonitoredSubscriptionsSuccess([]))
+    // return inquisitor.getMonitoredDeviceSubscriptions((error, subscriptions) => {
+    //   if(error) return dispatch(getMonitoredSubscriptionsFailure(error))
+    //   _.each(subscriptions, (subscription) => dispatch(addEdge(subscription)))
+    //   return dispatch(getMonitoredSubscriptionsSuccess(subscriptions))
+    // })
   }
 }
