@@ -34,7 +34,7 @@ const InteractionLayout = ({
   return (
     <div className={styles.root}>
       <div className={styles.heading}>
-        <h1>Sup G Money</h1>
+        <h1>Interaction Monitor</h1>
         <PauseButton paused={pauseMessageStream} onUnpause={onUnpause} />
       </div>
       <div className={styles.main}>
