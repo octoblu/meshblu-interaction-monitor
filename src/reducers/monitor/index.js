@@ -19,7 +19,7 @@ const addMessageCountToThing = (state, {metadata}) => {
   if(_.isEmpty(state.things)) return state
   const things = _.clone(state.things)
   const inquisitorUuid = _.last(metadata.route).to
-  const hop = _.find(metadata.route, {to: "50612acd-fd0c-4607-afb3-038c8d3776d9"})
+  const hop = _.find(metadata.route, {to: inquisitorUuid})
 
   if(!hop) {
     console.log("WTF!!", metadata)
