@@ -1,8 +1,16 @@
-.root {
+:local .root {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   flex-wrap: no-wrap;
   width: 350px;
   overflow:scroll;
+}
+
+:local .subHeader {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
 }

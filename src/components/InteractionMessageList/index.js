@@ -1,12 +1,13 @@
 import _ from 'lodash'
 import React, { PropTypes } from 'react'
+import Button from 'zooid-button'
 
 import InteractionMessageListItem from '../InteractionMessageListItem'
 import InteractionMessageListFilter from '../InteractionMessageListFilter'
 
 import styles from './styles.css'
 
-const InteractionMessageList = ({ things, onMessageSelection, onMessageFilterSelection, messages, selectedMessage, messageFilter }) => {
+const InteractionMessageList = ({ things, onEdgesClear, onMessageSelection, onMessageFilterSelection, messages, selectedMessage, messageFilter }) => {
   if (_.isEmpty(messages)) return null
   if (_.isEmpty(things)) return null
 
@@ -33,7 +34,10 @@ const InteractionMessageList = ({ things, onMessageSelection, onMessageFilterSel
   return (
     <div className={styles.root}>
       <InteractionMessageListFilter things={things} onMessageFilterSelection={onMessageFilterSelection} messageFilter={messageFilter}/>
-      <div>{messages.length}</div>
+      <div className={styles.subHeader}>
+        <span>{messages.length}</span>
+        <Button onClick={onEdgesClear} kind="primary">Clear Relationships</Button>
+      </div>
       <div className={styles.root}>
         {messageItems}
       </div>

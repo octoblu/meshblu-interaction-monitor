@@ -26,6 +26,7 @@ const InteractionLayout = ({
   messages,
   messageFilter,
   selectedMessage,
+  onEdgesClear,
   onMessageSelection,
   onMessageFilterSelection,
   pauseMessageStream,
@@ -42,6 +43,7 @@ const InteractionLayout = ({
           messages={messages}
           messageFilter={messageFilter}
           things={things}
+          onEdgesClear={onEdgesClear}
           onMessageSelection={onMessageSelection}
           onMessageFilterSelection={onMessageFilterSelection}
           selectedMessage={selectedMessage}
