@@ -21,7 +21,9 @@ const reduceUpdateNode = (state, {node, vector}) => {
 
 const reduceUpdateNodes = (state, nodeVectors) => {
   const graph = _.clone(state.graph || {})
-  graph.nodes = nodeVectors
+  _.each(nodeVectors, (vector, label) => {
+    graph.nodes[label] = vector
+  })
   return {...state, graph}
 }
 

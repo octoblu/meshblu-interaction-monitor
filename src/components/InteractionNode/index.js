@@ -72,7 +72,7 @@ const InteractionNode = ({uuid, thing, x, y, selected, pauseMessageStream, onMes
   }
   const handleMessageSelection = _.partial(onMessageFilterSelection, uuid)
   return (
-    <svg onClick={handleMessageSelection} className={classes.join(' ')} width={width} height={height} x={x-(width/2)} y={y-(height/2)} key={uuid} viewBox="-10 -10 20 20">
+    <svg onClick={handleMessageSelection} className={classes.join(' ')} width={width} height={height} x={x-(width/2)} y={y-(height/2)} id={uuid} key={uuid} viewBox="-10 -10 20 20">
         <NodeLogo device={device}/>
         <NodeErrors errors={errors}/>
         <text x="0" y="8" fontSize="3" alignmentBaseline="middle" textAnchor="middle">{name}</text>
