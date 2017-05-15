@@ -1,8 +1,9 @@
 import _ from 'lodash'
 import { createReducer } from 'redux-act'
-import { connectInteractionGraphSuccess, updateNodeInteractionGraph, addEdgeInteractionGraphSuccess, clearInteractionGraph, clearEdgesSuccess } from '../../actions/InteractionGraphConnect'
+import { connectInteractionGraphSuccess, updateNodeInteractionGraph, updateNodesInteractionGraph, addEdgeInteractionGraphSuccess, clearInteractionGraph, clearEdgesSuccess } from '../../actions/InteractionGraphConnect'
 import {getMonitoredSubscriptionsSuccess} from '../../actions/MonitoredSubscriptionsGet'
 import {selectMessage} from '../../actions/InquisitorConnect'
+
 const initialState = {
   graph: null,
   fetching: null,
@@ -15,6 +16,12 @@ const reduceUpdateNode = (state, {node, vector}) => {
   const {x,y} = vector
   const graph = _.clone(state.graph || {})
   _.set(graph, `nodes.${node.data.label}`, {x,y})
+  return {...state, graph}
+}
+
+const reduceUpdateNodes = (state, nodeVectors) => {
+  const graph = _.clone(state.graph || {})
+  graph.nodes = nodeVectors
   return {...state, graph}
 }
 
@@ -36,6 +43,7 @@ const reduceClearEdges = (state) => {
 export default createReducer({
   [connectInteractionGraphSuccess]: (state, payload) => ({ ...state, fetching: false, graph: {nodes: {}, edges: []} }),
   [updateNodeInteractionGraph]: reduceUpdateNode,
+  [updateNodesInteractionGraph]: reduceUpdateNodes,
   [addEdgeInteractionGraphSuccess]: reduceUpdateEdge,
   [clearEdgesSuccess]: reduceClearEdges,
   [getMonitoredSubscriptionsSuccess]: (state, payload) => ({ ...state, subscriptions: payload }),

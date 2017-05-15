@@ -1,12 +1,13 @@
 import { createAction } from 'redux-act'
 import Springy from 'springy'
-
+import _ from 'lodash'
 export const connectInteractionGraphSuccess = createAction('interaction/graph/connect/success')
 
 export const addEdgeInteractionGraphSuccess = createAction('interaction/graph/edge/add/success')
 export const addEdgeInteractionGraphFailure = createAction('interaction/graph/edge/add/failure')
 
 export const updateNodeInteractionGraph     = createAction('interaction/graph/update/node')
+export const updateNodesInteractionGraph    = createAction('interaction/graph/update/nodes')
 export const updateEdgeInteractionGraph     = createAction('interaction/graph/update/edge')
 export const clearInteractionGraph          = createAction('interaction/graph/clear')
 export const clearEdgesSuccess              = createAction('interaction/graph/clear/edge')
@@ -34,6 +35,18 @@ export function clearEdges(){
   }
 }
 
+let nodesBatch = {}
+
+const renderDrawNode = (dispatch) => (node, {x,y}) => {
+  if (_.has(nodesBatch, node.data.label)) {
+    dispatch(updateNodesInteractionGraph(nodesBatch))
+    nodesBatch = {}
+    return
+  }
+
+  nodesBatch[node.data.label] = {x, y}
+}
+
 export default function connectInteractionGraph({things, subscriptions, uuid, meshbluConfig}) {
   return (dispatch) => {
 
@@ -43,10 +56,9 @@ export default function connectInteractionGraph({things, subscriptions, uuid, me
     const renderClear = () => dispatch(clearInteractionGraph())
     const renderDrawEdge = (edge, emitter, subscriber) => 0
 
-    const renderDrawNode = (node, vector) => dispatch(updateNodeInteractionGraph({node, vector}))
     graph.loadJSON({nodes, edges})
     const layout = new Springy.Layout.ForceDirected(graph, 100.0, 1000.0, 0.7)
-    const renderer = new Springy.Renderer(layout, renderClear, renderDrawEdge, renderDrawNode)
+    const renderer = new Springy.Renderer(layout, renderClear, renderDrawEdge, renderDrawNode(dispatch))
     renderer.start()
     _.each(subscriptions, (subscription) => dispatch(addEdge(subscription)))
     connected = true
