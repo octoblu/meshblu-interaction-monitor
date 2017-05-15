@@ -5,6 +5,7 @@ import { getMonitoredSubscriptionsRequest, getMonitoredSubscriptionsSuccess, get
 import { getInquisitorRequest, getInquisitorSuccess, getInquisitorFailure } from '../../actions/InquisitorGet'
 import { monitoredDeviceUpdate, newMessage, } from '../../actions/InquisitorConnect'
 
+import { clearAllSuccess } from '../../actions/InteractionGraphConnect'
 import {selectMonitoredThingSuccess} from '../../actions/MonitoredThingSelect'
 
 const initialState = {
@@ -46,6 +47,22 @@ const addMessageCountToThing = (state, {metadata}) => {
   return {...state, things}
 }
 
+const clearMessageCounts = (state) => {
+
+  const things = _.mapValues(state.things, ({device}) => {
+    return {
+      device,
+      counts:  {
+        message:   {received: 0, sent: 0},
+        configure: {received: 0, sent: 0},
+        broadcast: {received: 0, sent: 0},
+      }
+    }
+  })
+
+  return {...state, things}
+}
+
 export default createReducer({
   [getMonitoredThingsRequest]: (state) => ({ ...state, fetching: true }),
   [getMonitoredThingsSuccess]: (state, payload) => ({ ...state, things: payload, fetching: false }),
@@ -70,6 +87,7 @@ export default createReducer({
     return {...state, things}
   },
   [selectMonitoredThingSuccess]: (state, payload) => ({ ...state, selectedThing: payload }),
-  [newMessage]: addMessageCountToThing
+  [newMessage]: addMessageCountToThing,
+  [clearAllSuccess]: clearMessageCounts,
 
 }, initialState)
