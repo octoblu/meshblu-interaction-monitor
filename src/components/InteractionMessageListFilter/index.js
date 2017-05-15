@@ -24,6 +24,7 @@ const InteractionMessageListFilter = ({ things, onMessageFilterSelection, messag
   return (
     <Select
       autofocus={true}
+      autosize={false}
       onChange={handleMessageFilterSelection}
       options={options}
       value={messageFilter} />
