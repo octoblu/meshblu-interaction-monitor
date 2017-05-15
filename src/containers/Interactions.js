@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import connectInquisitor from  '../actions/InquisitorConnect'
 import getMeshbluConfig from '../actions/MeshbluConfigGet'
-import connectInteractionGraph, {clearEdges} from '../actions/InteractionGraphConnect'
+import connectInteractionGraph, { clearEdges } from '../actions/InteractionGraphConnect'
 import getMonitoredSubscriptions from '../actions/MonitoredSubscriptionsGet'
 import getMonitoredThings from  '../actions/MonitoredThingsGet'
 import clearErrors from '../actions/ErrorsClear'

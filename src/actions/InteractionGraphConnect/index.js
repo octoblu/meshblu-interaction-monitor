@@ -1,5 +1,4 @@
 import { createAction } from 'redux-act'
-import Inquisitor from 'meshblu-inquisitor'
 import Springy from 'springy'
 
 export const connectInteractionGraphSuccess = createAction('interaction/graph/connect/success')

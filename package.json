@@ -1,6 +1,6 @@
 {
   "name": "meshblu-interaction-monitor",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "meshblu-interaction-monitor",
   "main": "index.js",
   "scripts": {
@@ -45,6 +45,7 @@
     "react": "^15.2.1",
     "react-cookie": "^0.4.8",
     "react-dom": "^15.2.1",
+    "react-hotkeys": "^0.10.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.6.0",
     "react-router-redux": "^4.0.6",

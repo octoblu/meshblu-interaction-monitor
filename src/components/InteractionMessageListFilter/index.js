@@ -20,8 +20,13 @@ const InteractionMessageListFilter = ({ things, onMessageFilterSelection, messag
     if(!selected) return onMessageFilterSelection()
     onMessageFilterSelection(selected.value)
   }
+
   return (
-    <Select options={options} value={messageFilter} onChange={handleMessageFilterSelection}/>
+    <Select
+      autofocus={true}
+      onChange={handleMessageFilterSelection}
+      options={options}
+      value={messageFilter} />
   )
 }
 
