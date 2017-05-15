@@ -11,13 +11,8 @@ import ThingList from '../ThingList'
 import styles from './styles.css'
 
 const InteractionSelectedMessage = ({message}) => {
-  if(_.isEmpty(message)) return null
+  if(_.isEmpty(message)) return <pre className={styles.selectedMessage}/>
   return <pre className={styles.selectedMessage}>{JSON.stringify(message, null, 2)}</pre>
-}
-
-const PauseButton = ({paused, onUnpause}) => {
-  if(!paused) return null
-  return <Button onClick={onUnpause}>Resume</Button>
 }
 
 const InteractionLayout = ({
@@ -25,7 +20,7 @@ const InteractionLayout = ({
   messageFilter,
   messages,
   nodes,
-  onEdgesClear,
+  onClear,
   onMessageFilterSelection,
   onMessageSelection,
   onUnpause,
@@ -34,23 +29,21 @@ const InteractionLayout = ({
   subscriptions,
   things,
 }) => {
-  const handlers = { 'ctrl+space': onEdgesClear }
+  const handlers = { 'ctrl+space': onClear }
 
   return (
     <div className={styles.root}>
       <HotKeys handlers={handlers}>
-        <div className={styles.heading}>
-          <h1>Interaction Monitor</h1>
-          <PauseButton paused={pauseMessageStream} onUnpause={onUnpause} />
-        </div>
         <div className={styles.main}>
           <InteractionMessageList
             messages={messages}
             messageFilter={messageFilter}
             things={things}
-            onEdgesClear={onEdgesClear}
+            onClear={onClear}
             onMessageSelection={onMessageSelection}
             onMessageFilterSelection={onMessageFilterSelection}
+            onUnpause={onUnpause}
+            pauseMessageStream={pauseMessageStream}
             selectedMessage={selectedMessage}
           />
         <InteractionSelectedMessage message={selectedMessage} />

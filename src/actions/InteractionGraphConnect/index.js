@@ -10,6 +10,7 @@ export const updateNodeInteractionGraph     = createAction('interaction/graph/up
 export const updateNodesInteractionGraph    = createAction('interaction/graph/update/nodes')
 export const updateEdgeInteractionGraph     = createAction('interaction/graph/update/edge')
 export const clearInteractionGraph          = createAction('interaction/graph/clear')
+export const clearAllSuccess                = createAction('interaction/graph/clear/all')
 export const clearEdgesSuccess              = createAction('interaction/graph/clear/edge')
 
 const graph = new Springy.Graph()
@@ -25,6 +26,12 @@ export function addEdge({emitterUuid, subscriberUuid, type}) {
     if(!node1 || !node2) return
     graph.newEdge(node1, node2, {type})
     return dispatch(addEdgeInteractionGraphSuccess({emitterUuid, subscriberUuid, type}))
+  }
+}
+
+export function clearAll(){
+  return (dispatch) => {
+    return dispatch(clearAllSuccess())
   }
 }
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import connectInquisitor from  '../actions/InquisitorConnect'
 import getMeshbluConfig from '../actions/MeshbluConfigGet'
-import connectInteractionGraph, { clearEdges } from '../actions/InteractionGraphConnect'
+import connectInteractionGraph, { clearAll } from '../actions/InteractionGraphConnect'
 import getMonitoredSubscriptions from '../actions/MonitoredSubscriptionsGet'
 import getMonitoredThings from  '../actions/MonitoredThingsGet'
 import clearErrors from '../actions/ErrorsClear'
@@ -30,8 +30,8 @@ class Interactions extends React.Component {
     if(_.isEmpty(graph)) this.props.dispatch(connectInteractionGraph({things: things, subscriptions, uuid, meshbluConfig}))
   }
 
-  handleEdgesClear = () => {
-    this.props.dispatch(clearEdges())
+  handleClear = () => {
+    this.props.dispatch(clearAll())
   }
 
   handleMessageSelection = (message) => {
@@ -57,7 +57,7 @@ class Interactions extends React.Component {
         subscriptions={subscriptions}
         things={things}
         messages={messages}
-        onEdgesClear={this.handleEdgesClear}
+        onClear={this.handleClear}
         onMessageSelection={this.handleMessageSelection}
         onMessageFilterSelection={this.handleMessageFilterSelection}
         messageFilter={messageFilter}

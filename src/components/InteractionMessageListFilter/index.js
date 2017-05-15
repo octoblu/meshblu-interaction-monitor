@@ -4,7 +4,7 @@ import Select from 'react-select'
 import 'react-select/dist/react-select.css'
 import styles from './styles.css'
 
-const InteractionMessageListFilter = ({ things, onMessageFilterSelection, messageFilter }) => {
+const InteractionMessageListFilter = ({ things, onMessageFilterSelection, messageFilter, className }) => {
   if (_.isEmpty(things)) return null
 
   const options = _.map(things, (thing) => {
@@ -25,6 +25,7 @@ const InteractionMessageListFilter = ({ things, onMessageFilterSelection, messag
     <Select
       autofocus={true}
       autosize={false}
+      className={className}
       onChange={handleMessageFilterSelection}
       options={options}
       value={messageFilter} />

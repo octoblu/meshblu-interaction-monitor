@@ -1,6 +1,8 @@
 :local .root {
   display: flex;
   flex: 1;
+  margin-left: 3px;
+  margin-top: 4px;
 }
 
 /* hotkeys won't let us pass in classNames and has no class :-( */
@@ -19,6 +21,8 @@
 :local .selectedMessage {
   width: 500px;
   overflow: scroll;
+  padding: 1em;
+  background-color: white;
 }
 
 :local .heading {

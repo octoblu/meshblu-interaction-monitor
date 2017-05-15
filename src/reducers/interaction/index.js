@@ -1,6 +1,14 @@
 import _ from 'lodash'
 import { createReducer } from 'redux-act'
-import { connectInteractionGraphSuccess, updateNodeInteractionGraph, updateNodesInteractionGraph, addEdgeInteractionGraphSuccess, clearInteractionGraph, clearEdgesSuccess } from '../../actions/InteractionGraphConnect'
+import {
+  addEdgeInteractionGraphSuccess,
+  clearAllSuccess,
+  clearEdgesSuccess,
+  clearInteractionGraph,
+  connectInteractionGraphSuccess,
+  updateNodeInteractionGraph,
+  updateNodesInteractionGraph,
+} from '../../actions/InteractionGraphConnect'
 import {getMonitoredSubscriptionsSuccess} from '../../actions/MonitoredSubscriptionsGet'
 import {selectMessage} from '../../actions/InquisitorConnect'
 
@@ -48,6 +56,7 @@ export default createReducer({
   [updateNodesInteractionGraph]: reduceUpdateNodes,
   [addEdgeInteractionGraphSuccess]: reduceUpdateEdge,
   [clearEdgesSuccess]: reduceClearEdges,
+  [clearAllSuccess]: reduceClearEdges,
   [getMonitoredSubscriptionsSuccess]: (state, payload) => ({ ...state, subscriptions: payload }),
   [selectMessage]: (state) => {
     return {...state, selectedByUser: true}

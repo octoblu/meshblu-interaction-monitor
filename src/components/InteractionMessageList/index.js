@@ -7,10 +7,12 @@ import InteractionMessageListFilter from '../InteractionMessageListFilter'
 
 import styles from './styles.css'
 
-const InteractionMessageList = ({ things, onEdgesClear, onMessageSelection, onMessageFilterSelection, messages, selectedMessage, messageFilter }) => {
-  if (_.isEmpty(messages)) return null
-  if (_.isEmpty(things)) return null
+const PauseButton = ({paused, onUnpause}) => {
+  if(!paused) return null
+  return <Button className={styles.leftButton} kind="hollow-danger" onClick={onUnpause}>Resume</Button>
+}
 
+const InteractionMessageList = ({ things, onClear, onMessageSelection, onMessageFilterSelection, onUnpause, messages, selectedMessage, messageFilter, pauseMessageStream }) => {
   const messageItems = _.map(messages, (message) => {
     if(messageFilter) {
        if(!_.some(message.metadata.route, ({from, to}) => from === messageFilter || to === messageFilter)) {
@@ -33,10 +35,17 @@ const InteractionMessageList = ({ things, onEdgesClear, onMessageSelection, onMe
 
   return (
     <div className={styles.root}>
-      <InteractionMessageListFilter things={things} onMessageFilterSelection={onMessageFilterSelection} messageFilter={messageFilter}/>
+      <InteractionMessageListFilter
+        className={styles.filterSelect}
+        things={things}
+        onMessageFilterSelection={onMessageFilterSelection}
+        messageFilter={messageFilter} />
       <div className={styles.subHeader}>
         <span>{messages.length}</span>
-        <Button onClick={onEdgesClear} kind="primary">Clear Relationships</Button>
+        <div>
+          <PauseButton paused={pauseMessageStream} onUnpause={onUnpause} />
+          <Button onClick={onClear} kind="hollow-primary">Clear</Button>
+        </div>
       </div>
       <div className={styles.root}>
         {messageItems}

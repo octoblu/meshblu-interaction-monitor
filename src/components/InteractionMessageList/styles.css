@@ -1,4 +1,4 @@
-:local .root {
+.root {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -7,10 +7,18 @@
   overflow:scroll;
 }
 
-:local .subHeader {
+.subHeader {
   display: flex;
   flex-shrink: 0;
   justify-content: space-between;
   align-items: center;
-  padding: 1em;
+  padding: 5px 3px;
+}
+
+.filterSelect {
+  margin-right: 3px;
+}
+
+.leftButton {
+  margin-right: 3px;
 }
