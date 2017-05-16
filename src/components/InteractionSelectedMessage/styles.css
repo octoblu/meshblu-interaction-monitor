@@ -4,13 +4,38 @@
   align-items: flex-start;
 }
 
+.hidden {
+  width: 0;
+  overflow: scroll;
+  padding: 0;
+  background-color: white;
+  transition: all .5s;
+  transition-delay: .15s;
+}
+
 .selectedMessage {
   width: 500px;
   overflow: scroll;
   padding: 1em;
   background-color: white;
+  transition: all .5s;
+  transition-delay: .15s;
 }
 
-.floatingButton {
+.floatingButtonHide {
   margin-left: 3px;
+}
+
+.floatingButtonHide div {
+  transform: rotateZ(180deg);
+  transition: all .25s;
+}
+
+.floatingButtonShow {
+  margin-left: 3px;
+}
+
+.floatingButtonShow div {
+  transform: rotateZ(0);
+  transition: all .25s;
 }

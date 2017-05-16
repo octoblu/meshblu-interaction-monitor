@@ -12,12 +12,6 @@ const PauseButton = ({paused, onUnpause}) => {
   return <Button className={styles.leftButton} kind="hollow-danger" onClick={onUnpause}>Resume</Button>
 }
 
-const ShowSelectedMessagePanelButton = ({onClick, show}) => {
-  if (!show) return null
-
-  return <Button kind="hollow-neutral" className={styles.floatingButton} onClick={onClick}>&gt;</Button>
-}
-
 const InteractionMessageList = ({
   messageFilter,
   messages,
@@ -53,26 +47,21 @@ const InteractionMessageList = ({
   })
 
   return (
-    <div className={styles.root}>
-      <div className={styles.column}>
-        <InteractionMessageListFilter
-          className={styles.filterSelect}
-          things={things}
-          onMessageFilterSelection={onMessageFilterSelection}
-          messageFilter={messageFilter} />
-        <div className={styles.subHeader}>
-          <span>{messages.length}</span>
-          <div>
-            <PauseButton paused={pauseMessageStream} onUnpause={onUnpause} />
-            <Button onClick={onClear} kind="hollow-primary">Clear</Button>
-          </div>
-        </div>
-        <div className={styles.column}>
-          {messageItems}
+    <div className={styles.column}>
+      <InteractionMessageListFilter
+        className={styles.filterSelect}
+        things={things}
+        onMessageFilterSelection={onMessageFilterSelection}
+        messageFilter={messageFilter} />
+      <div className={styles.subHeader}>
+        <span>{messages.length}</span>
+        <div>
+          <PauseButton paused={pauseMessageStream} onUnpause={onUnpause} />
+          <Button onClick={onClear} kind="hollow-primary">Clear</Button>
         </div>
       </div>
-      <div className={styles.floatingButtonColumn}>
-        <ShowSelectedMessagePanelButton onClick={onSelectedMessagePanelShow} show={!showSelectedMessagePanel} />
+      <div className={styles.column}>
+        {messageItems}
       </div>
     </div>
   )

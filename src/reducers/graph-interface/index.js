@@ -3,7 +3,7 @@ import { createReducer } from 'redux-act'
 import { selectedMessagePanelHide, selectedMessagePanelShow } from '../../actions/GraphInterface'
 
 const initialState = {
-  showSelectedMessagePanel: true,
+  showSelectedMessagePanel: false,
 }
 
 export default createReducer({
