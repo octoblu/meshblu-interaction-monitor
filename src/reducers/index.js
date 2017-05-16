@@ -6,6 +6,7 @@ import meshblu from './meshblu'
 import inquisitor from './inquisitor'
 import interaction from './interaction'
 import messages from './messages'
+import groups from './groups'
 const rootReducer = combineReducers({
   routing: routerReducer,
   monitor,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   inquisitor,
   interaction,
   messages,
+  groups,
 })
 
 export default rootReducer

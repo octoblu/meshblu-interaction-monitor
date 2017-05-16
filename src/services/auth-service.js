@@ -2,6 +2,7 @@ import atob from 'atob'
 import cookie from 'react-cookie'
 import { MESHBLU_HOST } from 'config'
 import MeshbluHttp from 'browser-meshblu-http'
+import { browserHistory } from 'react-router'
 
 export function getMeshbluConfig() {
   const bearerToken = cookie.load('meshbluBearerToken')
@@ -53,4 +54,6 @@ export function storeAuthenticationAndRedirect(nextState, replace) {
 
 export function destroyAuthentication() {
   cookie.remove('meshbluBearerToken', { path: '/' })
+  browserHistory.push('/')
+  window.location = window.location.origin
 }
