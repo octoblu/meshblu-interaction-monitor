@@ -12,7 +12,26 @@ const PauseButton = ({paused, onUnpause}) => {
   return <Button className={styles.leftButton} kind="hollow-danger" onClick={onUnpause}>Resume</Button>
 }
 
-const InteractionMessageList = ({ things, onClear, onMessageSelection, onMessageFilterSelection, onUnpause, messages, selectedMessage, messageFilter, pauseMessageStream }) => {
+const ShowSelectedMessagePanelButton = ({onClick, show}) => {
+  if (!show) return null
+
+  return <Button kind="hollow-neutral" className={styles.floatingButton} onClick={onClick}>&gt;</Button>
+}
+
+const InteractionMessageList = ({
+  messageFilter,
+  messages,
+  onClear,
+  onMessageFilterSelection,
+  onMessageSelection,
+  onSelectedMessagePanelHide,
+  onSelectedMessagePanelShow,
+  onUnpause,
+  pauseMessageStream,
+  selectedMessage,
+  showSelectedMessagePanel,
+  things,
+}) => {
   const messageItems = _.map(messages, (message) => {
     if(messageFilter) {
        if(!_.some(message.metadata.route, ({from, to}) => from === messageFilter || to === messageFilter)) {
@@ -35,20 +54,25 @@ const InteractionMessageList = ({ things, onClear, onMessageSelection, onMessage
 
   return (
     <div className={styles.root}>
-      <InteractionMessageListFilter
-        className={styles.filterSelect}
-        things={things}
-        onMessageFilterSelection={onMessageFilterSelection}
-        messageFilter={messageFilter} />
-      <div className={styles.subHeader}>
-        <span>{messages.length}</span>
-        <div>
-          <PauseButton paused={pauseMessageStream} onUnpause={onUnpause} />
-          <Button onClick={onClear} kind="hollow-primary">Clear</Button>
+      <div className={styles.column}>
+        <InteractionMessageListFilter
+          className={styles.filterSelect}
+          things={things}
+          onMessageFilterSelection={onMessageFilterSelection}
+          messageFilter={messageFilter} />
+        <div className={styles.subHeader}>
+          <span>{messages.length}</span>
+          <div>
+            <PauseButton paused={pauseMessageStream} onUnpause={onUnpause} />
+            <Button onClick={onClear} kind="hollow-primary">Clear</Button>
+          </div>
+        </div>
+        <div className={styles.column}>
+          {messageItems}
         </div>
       </div>
-      <div className={styles.root}>
-        {messageItems}
+      <div className={styles.floatingButtonColumn}>
+        <ShowSelectedMessagePanelButton onClick={onSelectedMessagePanelShow} show={!showSelectedMessagePanel} />
       </div>
     </div>
   )

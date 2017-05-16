@@ -18,13 +18,6 @@
   flex:1;
 }
 
-:local .selectedMessage {
-  width: 500px;
-  overflow: scroll;
-  padding: 1em;
-  background-color: white;
-}
-
 :local .heading {
   display: flex;
   flex-direction: row;

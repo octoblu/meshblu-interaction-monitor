@@ -1,10 +1,19 @@
 .root {
   display: flex;
+  flex-direction: row;
+  flex-grow: 0;
+}
+
+.column {
+  display: flex;
   flex-direction: column;
   justify-content: flex-start;
   flex-wrap: no-wrap;
   width: 350px;
-  overflow:scroll;
+  overflow: scroll;
+}
+
+.floatingButtonColumn {
 }
 
 .subHeader {
