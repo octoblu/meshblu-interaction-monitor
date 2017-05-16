@@ -62,6 +62,7 @@
     "zooid-dialog": "^1.0.2",
     "zooid-heading": "^1.0.8",
     "zooid-input": "^2.3.1",
+    "zooid-list": "^2.1.0",
     "zooid-page": "^3.0.0",
     "zooid-spinner": "^1.0.1",
     "zooid-ui": "^8.0.0"
