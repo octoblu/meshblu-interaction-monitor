@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
+import {selectedMessagePanelHide, selectedMessagePanelShow} from '../actions/GraphInterface'
 import connectInquisitor from  '../actions/InquisitorConnect'
 import getMeshbluConfig from '../actions/MeshbluConfigGet'
 import connectInteractionGraph, { clearAll } from '../actions/InteractionGraphConnect'
@@ -35,6 +36,7 @@ class Interactions extends React.Component {
   }
 
   handleMessageSelection = (message) => {
+    this.props.dispatch(selectedMessagePanelShow())
     this.props.dispatch(selectMessage(message))
   }
 
@@ -42,14 +44,24 @@ class Interactions extends React.Component {
     this.props.dispatch(filterMessageStream(uuid))
   }
 
+  handleSelectedMessagePanelHide = () => {
+    this.props.dispatch(selectedMessagePanelHide())
+  }
+
+  handleSelectedMessagePanelShow = () => {
+    this.props.dispatch(selectedMessagePanelShow())
+  }
+
   handleUnpause = () => {
     this.props.dispatch(unpauseMessageStream())
   }
 
   render() {
-    const {graph, subscriptions, things, messages, selectedMessage, pauseMessageStream, messageFilter} = this.props
+    const {graph, subscriptions, things, messages, selectedMessage, pauseMessageStream, messageFilter, showSelectedMessagePanel} = this.props
+
     if(_.isEmpty(graph)) return <h1> Waiting for graph </h1>
     if(_.isEmpty(things)) return <h1> Waiting for things </h1>
+
     const {nodes} = graph
     return (
       <InteractionLayout
@@ -60,6 +72,9 @@ class Interactions extends React.Component {
         onClear={this.handleClear}
         onMessageSelection={this.handleMessageSelection}
         onMessageFilterSelection={this.handleMessageFilterSelection}
+        onSelectedMessagePanelHide={this.handleSelectedMessagePanelHide}
+        onSelectedMessagePanelShow={this.handleSelectedMessagePanelShow}
+        showSelectedMessagePanel={showSelectedMessagePanel}
         messageFilter={messageFilter}
         pauseMessageStream={pauseMessageStream}
         selectedMessage={selectedMessage}
@@ -69,17 +84,18 @@ class Interactions extends React.Component {
   }
 }
 
-const mapStateToProps = ({meshblu, interaction, inquisitor, monitor, messages}) => {
+const mapStateToProps = ({meshblu, interaction, inquisitor, monitor, messages, graphInterface}) => {
   return {
+    connectionStatus: inquisitor.connectionStatus,
     graph: interaction.graph,
     meshbluConfig: meshblu.meshbluConfig,
+    messageFilter: messages.filter,
+    messages: messages.messages,
+    pauseMessageStream: messages.selectedByUser,
+    selectedMessage: messages.selected,
+    showSelectedMessagePanel: graphInterface.showSelectedMessagePanel,
     subscriptions: interaction.subscriptions,
     things: monitor.things,
-    connectionStatus: inquisitor.connectionStatus,
-    messages: messages.messages,
-    selectedMessage: messages.selected,
-    pauseMessageStream: messages.selectedByUser,
-    messageFilter: messages.filter,
   }
 }
 

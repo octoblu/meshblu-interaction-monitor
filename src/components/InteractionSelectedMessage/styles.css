@@ -1,0 +1,16 @@
+.root {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.selectedMessage {
+  width: 500px;
+  overflow: scroll;
+  padding: 1em;
+  background-color: white;
+}
+
+.floatingButton {
+  margin-left: 3px;
+}

@@ -6,14 +6,10 @@ import Button from 'zooid-button'
 import ErrorViewer from '../ErrorViewer'
 import InteractionGraph from '../InteractionGraph'
 import InteractionMessageList from '../InteractionMessageList'
+import InteractionSelectedMessage from '../InteractionSelectedMessage'
 import ThingList from '../ThingList'
 
 import styles from './styles.css'
-
-const InteractionSelectedMessage = ({message}) => {
-  if(_.isEmpty(message)) return <pre className={styles.selectedMessage}/>
-  return <pre className={styles.selectedMessage}>{JSON.stringify(message, null, 2)}</pre>
-}
 
 const InteractionLayout = ({
   focusSearch,
@@ -23,9 +19,12 @@ const InteractionLayout = ({
   onClear,
   onMessageFilterSelection,
   onMessageSelection,
+  onSelectedMessagePanelHide,
+  onSelectedMessagePanelShow,
   onUnpause,
   pauseMessageStream,
   selectedMessage,
+  showSelectedMessagePanel,
   subscriptions,
   things,
 }) => {
@@ -36,25 +35,32 @@ const InteractionLayout = ({
       <HotKeys handlers={handlers}>
         <div className={styles.main}>
           <InteractionMessageList
-            messages={messages}
             messageFilter={messageFilter}
-            things={things}
+            messages={messages}
             onClear={onClear}
-            onMessageSelection={onMessageSelection}
             onMessageFilterSelection={onMessageFilterSelection}
+            onMessageSelection={onMessageSelection}
+            onSelectedMessagePanelShow={onSelectedMessagePanelShow}
             onUnpause={onUnpause}
             pauseMessageStream={pauseMessageStream}
             selectedMessage={selectedMessage}
-          />
-        <InteractionSelectedMessage message={selectedMessage} />
-          <InteractionGraph
-            nodes={nodes}
-            subscriptions={subscriptions}
+            showSelectedMessagePanel={showSelectedMessagePanel}
             things={things}
-            onMessageFilterSelection={onMessageFilterSelection}
-            selectedMessage={selectedMessage}
-            pauseMessageStream={pauseMessageStream}
           />
+        <InteractionSelectedMessage
+          message={selectedMessage}
+          onSelectedMessagePanelHide={onSelectedMessagePanelHide}
+          onSelectedMessagePanelShow={onSelectedMessagePanelShow}
+          showSelectedMessagePanel={showSelectedMessagePanel}
+        />
+        <InteractionGraph
+          nodes={nodes}
+          subscriptions={subscriptions}
+          things={things}
+          onMessageFilterSelection={onMessageFilterSelection}
+          selectedMessage={selectedMessage}
+          pauseMessageStream={pauseMessageStream}
+        />
         </div>
       </HotKeys>
     </div>
