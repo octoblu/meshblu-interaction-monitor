@@ -9,7 +9,7 @@
   overflow: scroll;
   padding: 0;
   background-color: white;
-  transition: all .5s;
+  transition: all .25s;
   transition-delay: .15s;
 }
 
@@ -18,7 +18,7 @@
   overflow: scroll;
   padding: 1em;
   background-color: white;
-  transition: all .5s;
+  transition: all .25s;
   transition-delay: .15s;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .floatingButtonHide div {
-  transform: rotateZ(180deg);
+  transform: rotateZ(0);
   transition: all .25s;
 }
 
@@ -36,6 +36,24 @@
 }
 
 .floatingButtonShow div {
-  transform: rotateZ(0);
+  transform: rotateZ(180deg);
+  transition: all .25s;
+}
+
+.invisible,
+.invisible:active,
+.invisible:focus,
+.invisible:hover {
+  background-color: rgba(0,0,0,0.0);
+  border-color: rgba(0,0,0,0.0);
+  color: rgba(0,0,0,0.0);
+  margin-left: 3px;
+}
+
+.invisible div,
+.invisible:active div,
+.invisible:focus div,
+.invisible:hover div {
+  transform: rotateZ(90deg);
   transition: all .25s;
 }
