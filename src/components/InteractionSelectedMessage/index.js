@@ -16,10 +16,11 @@ const ToggleButton = ({message, onHide, onShow, showingPanel}) => {
 
 const InteractionSelectedMessage = ({message, onSelectedMessagePanelHide, onSelectedMessagePanelShow, showSelectedMessagePanel}) => {
   const formattedMessage = _.isEmpty(message) ? null : JSON.stringify(message, null, 2)
+  let showPanel = showSelectedMessagePanel && message
 
   return (
     <div className={styles.root}>
-      <pre className={(showSelectedMessagePanel) ? styles.selectedMessage : styles.hidden}>{formattedMessage}</pre>
+      <pre className={(showPanel) ? styles.selectedMessage : styles.hidden}>{formattedMessage}</pre>
       <ToggleButton
         message={message}
         onHide={onSelectedMessagePanelHide}

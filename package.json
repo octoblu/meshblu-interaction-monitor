@@ -1,6 +1,6 @@
 {
   "name": "meshblu-interaction-monitor",
-  "version": "1.9.4",
+  "version": "1.9.5",
   "description": "meshblu-interaction-monitor",
   "main": "index.js",
   "scripts": {
