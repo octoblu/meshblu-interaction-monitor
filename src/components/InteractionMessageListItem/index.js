@@ -35,10 +35,10 @@ const MessageThing = ({thing, message, onMessageSelection, selected}) => {
         <DeviceImage type={type} logo={logo} className={styles.logo} />
         <div className={styles.name}>
           <ThingName thing={device} />
+          <div className={styles.time}>
+            {moment(message.timestamp).format('h:mm:ssa')}
+          </div>
         </div>
-      </div>
-      <div className={styles.time}>
-        {moment(message.timestamp).format('MMMM Do YYYY, h:mm:ssa')}
       </div>
     </div>
   )
