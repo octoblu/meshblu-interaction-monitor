@@ -10,9 +10,9 @@
 .subHeader {
   display: flex;
   flex-shrink: 0;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  padding: 5px 3px;
+  padding: 0 0 5px 3px;
 }
 
 .filterSelect {

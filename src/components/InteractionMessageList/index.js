@@ -12,6 +12,11 @@ const PauseButton = ({paused, onUnpause}) => {
   return <Button className={styles.leftButton} kind="hollow-danger" onClick={onUnpause}>Resume</Button>
 }
 
+const ClearButton = ({show, onClear}) => {
+  if (!show) return null
+  return <Button onClick={onClear} kind="hollow-primary">Clear</Button>
+}
+
 const InteractionMessageList = ({
   messageFilter,
   messages,
@@ -48,17 +53,9 @@ const InteractionMessageList = ({
 
   return (
     <div className={styles.column}>
-      <InteractionMessageListFilter
-        className={styles.filterSelect}
-        things={things}
-        onMessageFilterSelection={onMessageFilterSelection}
-        messageFilter={messageFilter} />
       <div className={styles.subHeader}>
-        <span>{messages.length}</span>
-        <div>
-          <PauseButton paused={pauseMessageStream} onUnpause={onUnpause} />
-          <Button onClick={onClear} kind="hollow-primary">Clear</Button>
-        </div>
+        <PauseButton paused={pauseMessageStream} onUnpause={onUnpause} />
+        <ClearButton show={!_.isEmpty(messages)} onClear={onClear} />
       </div>
       <div className={styles.column}>
         {messageItems}

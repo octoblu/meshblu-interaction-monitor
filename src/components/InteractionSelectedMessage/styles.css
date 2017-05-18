@@ -24,24 +24,20 @@
 
 .floatingButtonHide {
   margin-left: 3px;
-  height: 36px;
 }
 
 .floatingButtonHide div {
   transform: rotateZ(0);
   transition: all .25s;
-  line-height: 14px;
 }
 
 .floatingButtonShow {
   margin-left: 3px;
-  height: 36px;
 }
 
 .floatingButtonShow div {
   transform: rotateZ(180deg);
   transition: all .25s;
-  line-height: 14px;
 }
 
 .invisible,
@@ -52,7 +48,6 @@
   border-color: rgba(0,0,0,0.0);
   color: rgba(0,0,0,0.0);
   margin-left: 3px;
-  height: 36px;
 }
 
 .invisible div,
@@ -61,5 +56,4 @@
 .invisible:hover div {
   transform: rotateZ(90deg);
   transition: all .25s;
-  line-height: 14px;
 }

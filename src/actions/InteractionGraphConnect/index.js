@@ -1,5 +1,5 @@
 import { createAction } from 'redux-act'
-import Springy from 'springy'
+import Springy, { Edge } from 'springy'
 import _ from 'lodash'
 export const connectInteractionGraphSuccess = createAction('interaction/graph/connect/success')
 
@@ -24,7 +24,9 @@ export function addEdge({emitterUuid, subscriberUuid, type}) {
     let node2 = graph.nodeSet[subscriberUuid]
 
     if(!node1 || !node2) return
-    graph.newEdge(node1, node2, {type})
+
+    const id = `${emitterUuid}:${subscriberUuid}`
+    graph.addEdge(new Edge(id, node1, node2, { type }))
     return dispatch(addEdgeInteractionGraphSuccess({emitterUuid, subscriberUuid, type}))
   }
 }
